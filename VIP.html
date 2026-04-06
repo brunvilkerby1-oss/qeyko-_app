@@ -6,7 +6,6 @@
     <title>VIP Levels - Qeyko</title>
     <style>
         body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 500px; margin: auto; }
         .vip-card { background: #161b2d; border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid #2e3755; text-align: left; position: relative; }
         .vip-name { font-size: 18px; font-weight: bold; color: #00d2ff; }
         .vip-price { font-size: 22px; margin: 5px 0; color: #fff; }
@@ -14,81 +13,24 @@
         .buy-btn { background: linear-gradient(90deg, #2575fc, #6a11cb); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; text-decoration: none; position: absolute; right: 15px; bottom: 20px; font-size: 13px; }
         .locked { background: #0f1424; border: 1px dashed #4e5a78; opacity: 0.7; }
         .locked .buy-btn { background: #333; pointer-events: none; }
-        .badge { background: #ff3e3e; font-size: 10px; padding: 2px 8px; border-radius: 5px; position: absolute; top: 10px; right: 10px; }
         .back-btn { display: block; margin: 20px auto; color: #8a94ad; text-decoration: none; border: 1px solid #2e3755; padding: 10px; width: 100px; border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2 style="color: #fff;">Packs VIP Mining</h2>
-        <p style="color: #8a94ad; font-size: 12px; margin-bottom: 25px;">Chwazi yon nivo pou kòmanse fè pwofi chak jou</p>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 1</div>
-            <div class="vip-price">10 USDT</div>
-            <div class="vip-profit">Revenu: 1.20 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 2</div>
-            <div class="vip-price">30 USDT</div>
-            <div class="vip-profit">Revenu: 4.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 3</div>
-            <div class="vip-price">100 USDT</div>
-            <div class="vip-profit">Revenu: 15.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 4</div>
-            <div class="vip-price">300 USDT</div>
-            <div class="vip-profit">Revenu: 50.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 5</div>
-            <div class="vip-price">700 USDT</div>
-            <div class="vip-profit">Revenu: 120.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 6</div>
-            <div class="vip-price">1,500 USDT</div>
-            <div class="vip-profit">Revenu: 280.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card">
-            <div class="vip-name">VIP 7</div>
-            <div class="vip-price">3,000 USDT</div>
-            <div class="vip-profit">Revenu: 650.00 USDT/jou</div>
-            <a href="recharge.html" class="buy-btn">Achte</a>
-        </div>
-
-        <div class="vip-card locked">
-            <span class="badge">Bento</span>
-            <div class="vip-name">VIP 8</div>
-            <div class="vip-price">7,000 USDT</div>
-            <div class="vip-profit">Indisponible kounye a</div>
-            <a href="#" class="buy-btn">Fèmen</a>
-        </div>
-
-        <div class="vip-card locked">
-            <span class="badge">Bento</span>
-            <div class="vip-name">VIP 9</div>
-            <div class="vip-price">15,000 USDT</div>
-            <div class="vip-profit">Indisponible kounye a</div>
-            <a href="#" class="buy-btn">Fèmen</a>
-        </div>
-
-        <a href="index.html" class="back-btn">Retounen</a>
+    <h2 style="color: #fff;">Packs VIP Mining</h2>
+    <div class="vip-card">
+        <div class="vip-name">VIP 1</div>
+        <div class="vip-price">10 USDT</div>
+        <div class="vip-profit">Revenu: 1.20 USDT/jou</div>
+        <a href="recharge.html" class="buy-btn">Achte</a>
     </div>
+    <div class="vip-card locked">
+        <div class="vip-name">VIP 8</div>
+        <div class="vip-price">7,000 USDT</div>
+        <div class="vip-profit">Indisponible</div>
+        <a href="#" class="buy-btn">Fèmen</a>
+    </div>
+    <a href="index.html" class="back-btn">Retounen</a>
 </body>
 </html>
+
