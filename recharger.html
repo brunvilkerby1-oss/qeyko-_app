@@ -3,42 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recharger - Qeyko</title>
+    <title>Recharger Sélectionner</title>
     <style>
-        body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 500px; margin: auto; }
-        .card { background: #161b2d; border-radius: 20px; padding: 30px; border: 1px solid #232a45; margin-top: 20px; }
-        .qr-placeholder { background: white; width: 150px; height: 150px; margin: 0 auto 20px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 12px; }
-        .address-box { background: #0f1424; border: 1px dashed #2575fc; padding: 15px; border-radius: 12px; word-break: break-all; color: #00d2ff; font-family: monospace; font-size: 14px; margin-bottom: 20px; }
-        .instruction { color: #8a94ad; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
-        .copy-btn { background: linear-gradient(90deg, #2575fc, #6a11cb); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
-        .back-link { display: block; margin-top: 25px; color: #4e5a78; text-decoration: none; font-size: 14px; }
+        body { background-color: #1a1d26; color: white; font-family: sans-serif; margin: 0; padding: 15px; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { font-size: 20px; text-decoration: none; color: white; margin-right: 60px; }
+        .list-container { background: #242936; border-radius: 15px; overflow: hidden; border: 1px solid #3d4452; }
+        .item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #2d3340; text-decoration: none; color: white; transition: 0.3s; }
+        .item:active { background: #2d3340; }
+        .logo { width: 30px; height: 30px; margin-right: 15px; border-radius: 50%; }
+        .name { flex-grow: 1; font-size: 14px; font-weight: bold; }
+        .arrow { color: #8a94ad; font-size: 18px; }
+        #address-display { display: none; background: #1a1d26; padding: 20px; text-align: center; border-radius: 15px; margin-top: 10px; border: 1px dashed #c4ff00; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Depo USDT</h2>
-        <div class="card">
-            <div class="instruction">
-                Voye sèlman <strong>USDT (BEP20)</strong> sou adrès sa a. Depo a ap parèt sou balans ou apre konfimasyon sou rezo a.
-            </div>
-            
-            <div class="address-box" id="wallet-addr">
-                0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396
-            </div>
+    <div class="header">
+        <a href="index.html" class="back-btn">‹</a>
+        <span>Recharger Sélectionner</span>
+    </div>
 
-            <button class="copy-btn" onclick="copyAddress()">KOPYE ADRÈS LA</button>
+    <div class="list-container">
+        <a href="javascript:void(0)" class="item" onclick="showAddr()">
+            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="logo">
+            <span class="name">BEP20-USDT</span>
+            <span class="arrow">›</span>
+        </a>
+        <div id="address-display">
+            <p style="font-size: 11px; color: #8a94ad;">Adrès USDT (BEP20) pa ou:</p>
+            <strong style="word-break: break-all; color: #c4ff00; font-size: 13px;">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396</strong>
+            <button onclick="copyAddr()" style="margin-top:10px; background:#c4ff00; border:none; padding:5px 15px; border-radius:5px; font-weight:bold;">Kopye</button>
         </div>
 
-        <a href="index.html" class="back-link">← Retounen nan Dashboard</a>
+        <div class="item"><img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="logo"><span class="name">BEP20-USDC</span><span class="arrow">›</span></div>
+        <div class="item"><img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" class="logo"><span class="name">BNB</span><span class="arrow">›</span></div>
+        <div class="item"><img src="https://cryptologos.cc/logos/tron-trx-logo.png" class="logo"><span class="name">TRC20-USDT</span><span class="arrow">›</span></div>
     </div>
 
     <script>
-        function copyAddress() {
-            const addr = "0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396";
-            navigator.clipboard.writeText(addr).then(() => {
-                alert("Adrès la kopye ak siksè!");
-            });
+        function showAddr() { document.getElementById('address-display').style.display = 'block'; }
+        function copyAddr() {
+            navigator.clipboard.writeText("0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396");
+            alert("Adrès kopye!");
         }
     </script>
 </body>
