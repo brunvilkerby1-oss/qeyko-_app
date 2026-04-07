@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,13 +11,13 @@
         .header { display: flex; align-items: center; margin-bottom: 25px; }
         .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 15px; }
         .addr-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        .usdt-logo { width: 40px; margin-bottom: 10px; }
         .network-tag { background: rgba(196, 255, 0, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
         .qr-code { width: 160px; height: 160px; background: white; margin: 10px auto; padding: 10px; border-radius: 12px; }
         .qr-code img { width: 100%; height: auto; }
-        .addr-box { background: #0f1117; border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 13px; word-break: break-all; color: var(--primary); font-family: monospace; cursor: pointer; }
+        .addr-box { background: #0f1117; border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 13px; word-break: break-all; color: var(--primary); font-family: monospace; }
         .copy-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 16px; border-radius: 30px; font-weight: bold; margin-top: 25px; cursor: pointer; font-size: 15px; }
-        .copy-btn:active { transform: scale(0.98); }
-        .warning { font-size: 12px; color: var(--text-sec); margin-top: 25px; line-height: 1.6; text-align: left; }
+        .warning { font-size: 12px; color: var(--text-sec); margin-top: 25px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -27,17 +28,15 @@
     </div>
 
     <div class="addr-card">
+        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="usdt-logo" alt="USDT">
+        <br>
         <span class="network-tag">Réseau : BEP20 (BSC)</span>
         
-        <div style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Scannez le QR Code ou copiez l'adresse</div>
-        
         <div class="qr-code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x7fD5...VOTRE_ADRESSE_ICI..." alt="QR Code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VOTRE_ADRESSE_ICI" alt="QR Code">
         </div>
 
-        <div class="addr-box" id="wallet-addr" onclick="copyAddr()">
-            0x7fD5...votre_adresse_bep20_ici...
-        </div>
+        <div class="addr-box" id="wallet-addr">0x7fD5...votre_adresse_ici...</div>
 
         <button class="copy-btn" onclick="copyAddr()">Copier l'adresse de dépôt</button>
     </div>
@@ -45,24 +44,18 @@
     <div class="warning">
         <strong style="color: #ff4d4d;">⚠️ Important :</strong><br>
         • Envoyez uniquement des <span style="color:var(--primary)">USDT</span> via le réseau <span style="color:var(--primary)">BEP20</span>.<br>
-        • Le dépôt minimum est de **5.00 USDT**.<br>
-        • Les fonds seront crédités après confirmation sur la blockchain.
+        • Les fonds seront crédités automatiquement après confirmation sur la blockchain.<br>
+        • Assurez-vous d'utiliser le bon réseau pour éviter toute perte.
     </div>
 
     <script>
         function copyAddr() {
             var addrText = document.getElementById('wallet-addr').innerText;
-            
-            // Metòd pwofesyonèl pou kopye
             navigator.clipboard.writeText(addrText).then(function() {
-                alert("✅ Adresse BEP20 copiée !");
-            }, function() {
-                // Si navigatè a bloke clipboard
-                alert("Erreur lors de la copie.");
+                alert("✅ Adresse copiée !");
             });
         }
     </script>
-
 </body>
 </html>
 
