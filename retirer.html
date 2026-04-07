@@ -6,89 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retrait - Qeyko Mining</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #1a1d26; --card: #242936; --border: #3d4452; }
-        body { background-color: var(--bg); color: white; font-family: sans-serif; padding: 15px; margin: 0; }
-        
-        .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; }
-        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 100px; }
-        .title { font-size: 18px; font-weight: bold; }
-        
-        .balance-card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border); }
-        .bal-label { color: #8a94ad; font-size: 13px; margin-bottom: 8px; }
-        .bal-val { color: var(--primary); font-size: 32px; font-weight: bold; }
-
-        .label { display: block; font-size: 14px; font-weight: bold; margin: 15px 0 8px; }
-        
-        /* Ranje logo a pou l pa bay ? ankò */
-        .network-select { background: var(--primary); color: black; padding: 10px 15px; border-radius: 10px; font-size: 14px; font-weight: bold; display: inline-flex; align-items: center; border: none; }
-        .network-select img { width: 20px; height: 20px; margin-right: 8px; }
-
-        input { width: 100%; background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 12px; color: white; box-sizing: border-box; font-size: 14px; outline: none; }
-        input:focus { border-color: var(--primary); }
-
-        .confirm-btn { background: var(--primary); color: black; border: none; width: 100%; padding: 18px; border-radius: 35px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
-
-        /* Seksyon Rappel chaleureux ki jeneral */
-        .info-box { background: rgba(196, 255, 0, 0.05); border: 1px solid rgba(196, 255, 0, 0.1); padding: 18px; margin-top: 25px; border-radius: 15px; }
-        .info-title { color: var(--primary); font-size: 14px; font-weight: bold; margin-bottom: 8px; display: block; }
-        .info-text { font-size: 12px; color: #8a94ad; line-height: 1.6; margin: 0; }
-        .highlight { color: white; font-weight: bold; }
+        :root { --primary: #c4ff00; --bg-dark: #0f1117; --card-bg: #1a1d26; --border: #2d3340; --text-sec: #8a94ad; }
+        body { background: var(--bg-dark); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { font-size: 25px; text-decoration: none; color: white; margin-right: 15px; }
+        .balance-card { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; text-align: center; }
+        .label { display: block; margin: 15px 0 8px; color: var(--text-sec); font-size: 14px; }
+        input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; color: white; box-sizing: border-box; outline: none; }
+        .confirm-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
+        .info-box { margin-top: 25px; background: rgba(196, 255, 0, 0.05); padding: 15px; border-radius: 10px; border: 1px dashed var(--border); font-size: 12px; }
+        .highlight { color: var(--primary); }
     </style>
 </head>
 <body>
+
     <div class="header">
         <a href="index.html" class="back-btn">‹</a>
-        <span class="title">Retirer</span>
+        <span style="font-weight:bold;">Retrait USDT</span>
     </div>
 
     <div class="balance-card">
-        <div class="bal-label">Actifs actuellement disponibles (USDT)</div>
-        <div class="bal-val">0.000000</div>
+        <div style="color:var(--text-sec); font-size:12px;">Solde disponible</div>
+        <div style="font-size:24px; font-weight:bold; color:var(--primary); margin-top:5px;">0.000000 USDT</div>
     </div>
 
-    <span class="label">Sélectionner le réseau principal</span>
-    <div class="network-select">
-        <img src="https://img.icons8.com/color/48/tether.png" alt="USDT">
-        BEP20-USDT
-    </div>
+    <label class="label">Adresse de retrait (BEP20)</label>
+    <input type="text" id="wallet" placeholder="Entrez votre adresse USDT">
 
-    <span class="label">Adresse de retrait</span>
-    <input type="text" placeholder="Veuillez saisir ou coller l'adresse">
+    <label class="label">Montant du retrait</label>
+    <input type="number" id="amount" placeholder="Minimum 1.00">
 
-    <span class="label">Montant du retrait</span>
-    <input type="number" placeholder="Montant minimum : 1.00 USDT">
+    <label class="label">Mot de passe de sécurité</label>
+    <input type="password" id="password" placeholder="Votre mot de passe">
 
-    <span class="label">Mot de passe de sécurité</span>
-    <input type="password" placeholder="Saisir votre mot de passe">
-
-        <button type="button" class="confirm-btn" onclick="fèRetrè()">Confirmer</button>
+    <button type="button" class="confirm-btn" onclick="lancerRetrait()">Confirmer le Retrait</button>
 
     <div class="info-box">
-        <span class="info-title">● Rappel chaleureux :</span>
-        <p class="info-text">
+        <span style="color:var(--primary); font-weight:bold;">● Rappel chaleureux :</span>
+        <p style="line-height:1.6; color:var(--text-sec);">
             1. Le retrait minimum est de <span class="highlight">1.00 USDT</span>.<br>
-            2. Assurez-vous que l'adresse appartient au réseau BEP20.<br>
-            3. Les retraits sont traités quotidiennement.
+            2. Les retraits sont traités en <span class="highlight">24h</span> maximum.<br>
+            3. Vérifiez bien votre adresse <span class="highlight">BEP20</span>.
         </p>
     </div>
 
     <script>
-        function fèRetrè() {
-            // Nou chèche valè yo dirèkteman
-            const toutInputs = document.querySelectorAll('input');
-            const montant = toutInputs[1].value; // Dezyèm input la se montant
-            const pass = toutInputs[2].value;    // Twazyèm input la se modpas
+        function lancerRetrait() {
+            var valWallet = document.getElementById('wallet').value;
+            var valAmount = document.getElementById('amount').value;
+            var valPass = document.getElementById('password').value;
 
-            if (montant >= 1 && pass !== "") {
-                alert("✅ Demande de retrait envoyée avec succès ! \n\nTraitement en cours sur la Blockchain BEP20.");
-                window.location.href = "index.html";
+            if(valWallet === "" || valAmount === "" || valPass === "") {
+                alert("❌ Erreur: Tous les champs sont obligatoires !");
+            } else if(valAmount < 1) {
+                alert("❌ Erreur: Le montant minimum est de 1.00 USDT.");
             } else {
-                alert("❌ Erreur: Veuillez vérifier le montant (min 1.00 USDT) et votre mot de passe.");
+                alert("✅ Succès !\n\nVotre demande de retrait de " + valAmount + " USDT a été soumise. \nTraitement en cours sur la BSC Network.");
+                window.location.href = "index.html";
             }
         }
     </script>
 
 </body>
 </html>
-
 
