@@ -9,22 +9,19 @@
         :root { --primary: #c4ff00; --bg-dark: #0f1117; --card-bg: #1a1d26; --border: #2d3340; --text-sec: #8a94ad; }
         body { background: var(--bg-dark); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; box-sizing: border-box; }
         
-        /* Carte du Solde */
         .balance-card { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border); text-align: center; margin-bottom: 25px; }
         .balance-val { font-size: 32px; font-weight: bold; color: var(--primary); margin: 10px 0; }
-        .balance-label { color: var(--text-sec); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .balance-label { color: var(--text-sec); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Grille du Menu */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
         .menu-btn { background: var(--card-bg); border: 1px solid var(--border); padding: 22px 15px; border-radius: 18px; text-decoration: none; color: white; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        
-        /* Effet au clic */
         .menu-btn:active { transform: scale(0.95); background: rgba(196, 255, 0, 0.08); border-color: var(--primary); }
         
-        .btn-icon { font-size: 26px; }
-        .btn-label { font-size: 13px; font-weight: 600; color: #ffffff; }
+        .btn-icon { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+        .btn-icon img { width: 100%; height: auto; }
+        .emoji-icon { font-size: 26px; }
+        .btn-label { font-size: 13px; font-weight: 600; }
 
-        /* Note de bas de page */
         .footer-note { text-align: center; color: var(--text-sec); font-size: 11px; margin-top: 40px; line-height: 1.6; }
         .highlight { color: var(--primary); font-weight: bold; }
     </style>
@@ -39,28 +36,35 @@
 
     <div class="menu-grid">
         
+        <a href="recharger.html" class="menu-btn" style="border-color: var(--primary);">
+            <div class="btn-icon">
+                <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT">
+            </div>
+            <span class="btn-label" style="color: var(--primary);">Recharger</span>
+        </a>
+
         <a href="retirer.html" class="menu-btn">
-            <span class="btn-icon">💸</span>
+            <span class="emoji-icon">💸</span>
             <span class="btn-label">Retrait</span>
         </a>
 
         <a href="vip.html" class="menu-btn">
-            <span class="btn-icon">💎</span>
+            <span class="emoji-icon">💎</span>
             <span class="btn-label">Packs VIP</span>
         </a>
 
-        <a href="parrainage.html" class="menu-btn">
-            <span class="btn-icon">👥</span>
-            <span class="btn-label">Invitation</span>
-        </a>
-
         <a href="donnees.html" class="menu-btn">
-            <span class="btn-icon">📊</span>
+            <span class="emoji-icon">📊</span>
             <span class="btn-label">Données</span>
         </a>
 
+        <a href="parrainage.html" class="menu-btn">
+            <span class="emoji-icon">👥</span>
+            <span class="btn-label">Invitation</span>
+        </a>
+
         <a href="parametres.html" class="menu-btn">
-            <span class="btn-icon">⚙️</span>
+            <span class="emoji-icon">⚙️</span>
             <span class="btn-label">Paramètres</span>
         </a>
 
