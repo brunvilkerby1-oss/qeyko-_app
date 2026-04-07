@@ -69,7 +69,21 @@
             1. Le retrait minimum est de <span class="highlight">1.00 USDT</span>.<br>
             2. Assurez-vous que l'adresse de retrait appartient au réseau <span class="highlight">BEP20 (Binance Smart Chain)</span>. L'utilisation d'un autre réseau entraînera la perte définitive des fonds.<br>
             3. Les retraits sont traités <span class="highlight">quotidiennement</span> selon les conditions de votre pack de minage actif.
-        </p>
-    </div>
-</body>
-</html>
+
+   </p>
+ </div>
+ <script>
+  document.querySelector('.confirm-btn').onclick = function() {
+        const montant = document.querySelector('input[type="number"]').value;
+        const pass = document.querySelector('input[type="password"]').value;
+
+        if(montant >= 1 && pass !== "") {
+             alert("✅ Demande de retrait envoyée avec succès !");
+             window.location.href = "index.html";
+        } else {
+           alert("❌ Erreur: Veuillez vérifier le montant et le mot de passe.");
+   };
+ </script>
+ </body>
+ </html>
+
