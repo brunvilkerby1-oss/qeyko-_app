@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation - Qeyko Mining</title>
+    <style>
+        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', sans-serif; padding: 15px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; }
+        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 80px; cursor: pointer; }
+        .title { font-size: 18px; font-weight: bold; }
+
+        .promo-card { background: linear-gradient(135deg, #c4ff00 0%, #9bc400 100%); color: black; border-radius: 20px; padding: 25px; text-align: center; margin-bottom: 25px; }
+        .promo-title { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        .promo-text { font-size: 13px; font-weight: 500; }
+
+        .link-box { background: #242936; border: 1px dashed #3d4452; border-radius: 15px; padding: 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+        .link-text { font-size: 12px; color: #8a94ad; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70%; }
+        .copy-link-btn { background: #c4ff00; color: black; border: none; padding: 8px 15px; border-radius: 10px; font-weight: bold; font-size: 12px; cursor: pointer; }
+
+        .section-title { font-size: 14px; font-weight: bold; margin-bottom: 15px; color: #c4ff00; text-transform: uppercase; }
+        
+        .commission-table { background: #242936; border-radius: 15px; overflow: hidden; border: 1px solid #3d4452; width: 100%; border-collapse: collapse; }
+        .commission-table th, .commission-table td { padding: 12px; text-align: left; border-bottom: 1px solid #2d3340; font-size: 13px; }
+        .commission-table th { background: #2d3340; color: #8a94ad; font-weight: normal; }
+        .vip-name { font-weight: bold; color: white; }
+        .bonus-val { color: #c4ff00; font-weight: bold; }
+
+        .note { font-size: 11px; color: #8a94ad; margin-top: 15px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="back-btn">‹</a>
+        <span class="title">Invitation</span>
+    </div>
+
+    <div class="promo-card">
+        <div class="promo-title">Gagnez des Commissions</div>
+        <div class="promo-text">Invitez vos amis et recevez des bonus instantanés sur chaque activation de pack VIP.</div>
+    </div>
+
+    <div class="section-title">Mon Lien d'invitation</div>
+    <div class="link-box">
+        <span class="link-text" id="invite-link">https://t.me/SmartAsset_Bot?start=user123</span>
+        <button class="copy-link-btn" onclick="copyLink()">COPIER</button>
+    </div>
+
+    <div class="section-title">Tableau des Commissions</div>
+    <table class="commission-table">
+        <thead>
+            <tr>
+                <th>Niveau VIP</th>
+                <th>Bonus Direct</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="vip-name">VIP 1</td>
+                <td class="bonus-val">0.80 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 2</td>
+                <td class="bonus-val">1.20 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 3</td>
+                <td class="bonus-val">2.00 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 4</td>
+                <td class="bonus-val">4.50 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 5</td>
+                <td class="bonus-val">12.00 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 6</td>
+                <td class="bonus-val">18.00 USDT</td>
+            </tr>
+            <tr>
+                <td class="vip-name">VIP 7</td>
+                <td class="bonus-val">25.00 USDT</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        * Les commissions sont créditées dès que votre filleul active son pack.<br>
+        * Pas de limite d'invitations par utilisateur.
+    </div>
+
+    <script>
+        function copyLink() {
+            const link = document.getElementById('invite-link').innerText;
+            navigator.clipboard.writeText(link).then(() => {
+                alert("Lien d'invitation copié !");
+            });
+        }
+    </script>
+</body>
+</html>
