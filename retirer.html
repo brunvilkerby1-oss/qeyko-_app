@@ -6,31 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retrait - Qeyko Mining</title>
     <style>
-        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', sans-serif; padding: 15px; margin: 0; }
+        :root { --primary: #c4ff00; --bg: #1a1d26; --card: #242936; --border: #3d4452; }
+        body { background-color: var(--bg); color: white; font-family: sans-serif; padding: 15px; margin: 0; }
+        
         .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; }
-        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 110px; cursor: pointer; }
+        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 100px; }
         .title { font-size: 18px; font-weight: bold; }
         
-        .card { background: #242936; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #3d4452; }
-        .balance-label { color: #8a94ad; font-size: 13px; margin-bottom: 10px; }
-        .balance-val { color: #c4ff00; font-size: 32px; font-weight: bold; }
+        .balance-card { background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--border); }
+        .bal-label { color: #8a94ad; font-size: 13px; margin-bottom: 8px; }
+        .bal-val { color: var(--primary); font-size: 32px; font-weight: bold; }
 
-        .input-group { margin-bottom: 20px; }
-        .label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #f0f0f0; }
+        .label { display: block; font-size: 14px; font-weight: bold; margin: 15px 0 8px; }
         
-        .network-box { background: #c4ff00; color: black; padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; }
-        .network-box img { width: 18px; margin-right: 8px; }
+        /* Ranje logo a pou l pa bay ? ankò */
+        .network-select { background: var(--primary); color: black; padding: 10px 15px; border-radius: 10px; font-size: 14px; font-weight: bold; display: inline-flex; align-items: center; border: none; }
+        .network-select img { width: 20px; height: 20px; margin-right: 8px; }
 
-        input { width: 100%; background: #242936; border: 1px solid #3d4452; padding: 15px; border-radius: 10px; color: white; box-sizing: border-box; font-size: 14px; outline: none; margin-top: 5px; }
-        input:focus { border-color: #c4ff00; }
-        input::placeholder { color: #4e5a78; }
+        input { width: 100%; background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 12px; color: white; box-sizing: border-box; font-size: 14px; outline: none; }
+        input:focus { border-color: var(--primary); }
 
-        .confirm-btn { background: #c4ff00; color: black; border: none; width: 100%; padding: 18px; border-radius: 35px; font-weight: bold; font-size: 16px; margin-top: 15px; cursor: pointer; transition: 0.2s; }
-        .confirm-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .confirm-btn { background: var(--primary); color: black; border: none; width: 100%; padding: 18px; border-radius: 35px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
 
-        .info-box { background: rgba(196, 255, 0, 0.05); border: 1px solid rgba(196, 255, 0, 0.2); padding: 15px; margin-top: 20px; border-radius: 12px; }
-        .info-text { font-size: 12px; color: #8a94ad; line-height: 1.5; margin: 0; }
-        .highlight { color: #c4ff00; font-weight: bold; }
+        /* Seksyon Rappel chaleureux ki jeneral */
+        .info-box { background: rgba(196, 255, 0, 0.05); border: 1px solid rgba(196, 255, 0, 0.1); padding: 18px; margin-top: 25px; border-radius: 15px; }
+        .info-title { color: var(--primary); font-size: 14px; font-weight: bold; margin-bottom: 8px; display: block; }
+        .info-text { font-size: 12px; color: #8a94ad; line-height: 1.6; margin: 0; }
+        .highlight { color: white; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -39,41 +41,34 @@
         <span class="title">Retirer</span>
     </div>
 
-    <div class="card">
-        <div class="balance-label">Actifs actuellement disponibles (USDT)</div>
-        <div class="balance-val">0.000000</div>
+    <div class="balance-card">
+        <div class="bal-label">Actifs actuellement disponibles (USDT)</div>
+        <div class="bal-val">0.000000</div>
     </div>
 
-    <div class="input-group">
-        <span class="label">Sélectionner le réseau principal</span>
-        <div class="network-box">
-            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png">
-            BEP20-USDT
-        </div>
+    <span class="label">Sélectionner le réseau principal</span>
+    <div class="network-select">
+        <img src="https://img.icons8.com/color/48/tether.png" alt="USDT">
+        BEP20-USDT
     </div>
 
-    <div class="input-group">
-        <span class="label">Adresse de retrait</span>
-        <input type="text" placeholder="Veuillez saisir ou appuyer longuement pour coller">
-    </div>
+    <span class="label">Adresse de retrait</span>
+    <input type="text" placeholder="Veuillez saisir ou coller l'adresse">
 
-    <div class="input-group">
-        <span class="label">Montant du retrait</span>
-        <input type="number" placeholder="Montant minimum de retrait : 1.0000 USDT">
-    </div>
+    <span class="label">Montant du retrait</span>
+    <input type="number" placeholder="Montant minimum : 1.00 USDT">
 
-    <div class="input-group">
-        <span class="label">Mot de passe de sécurité</span>
-        <input type="password" placeholder="Mot de passe de sécurité">
-    </div>
+    <span class="label">Mot de passe de sécurité</span>
+    <input type="password" placeholder="Saisir votre mot de passe">
 
-    <button class="confirm-btn" onclick="alert('Votre demande de retrait a été soumise !')">Confirmer</button>
+    <button class="confirm-btn">Confirmer</button>
 
     <div class="info-box">
+        <span class="info-title">● Rappel chaleureux :</span>
         <p class="info-text">
-            <span class="highlight">Rappel chaleureux :</span><br>
-            Les membres <span class="highlight">VIP 1</span> peuvent effectuer un retrait de <span class="highlight">1 USDT chaque jour</span> sans condition de parrainage. 
-            Assurez-vous que l'adresse est correcte sur le réseau BEP20.
+            1. Le retrait minimum est de <span class="highlight">1.00 USDT</span>.<br>
+            2. Assurez-vous que l'adresse de retrait appartient au réseau <span class="highlight">BEP20 (Binance Smart Chain)</span>. L'utilisation d'un autre réseau entraînera la perte définitive des fonds.<br>
+            3. Les retraits sont traités <span class="highlight">quotidiennement</span> selon les conditions de votre pack de minage actif.
         </p>
     </div>
 </body>
