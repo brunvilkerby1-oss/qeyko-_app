@@ -1,1 +1,80 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrait - Qeyko Mining</title>
+    <style>
+        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', sans-serif; padding: 15px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; }
+        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 110px; cursor: pointer; }
+        .title { font-size: 18px; font-weight: bold; }
+        
+        .card { background: #242936; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #3d4452; }
+        .balance-label { color: #8a94ad; font-size: 13px; margin-bottom: 10px; }
+        .balance-val { color: #c4ff00; font-size: 32px; font-weight: bold; }
+
+        .input-group { margin-bottom: 20px; }
+        .label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #f0f0f0; }
+        
+        .network-box { background: #c4ff00; color: black; padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; }
+        .network-box img { width: 18px; margin-right: 8px; }
+
+        input { width: 100%; background: #242936; border: 1px solid #3d4452; padding: 15px; border-radius: 10px; color: white; box-sizing: border-box; font-size: 14px; outline: none; margin-top: 5px; }
+        input:focus { border-color: #c4ff00; }
+        input::placeholder { color: #4e5a78; }
+
+        .confirm-btn { background: #c4ff00; color: black; border: none; width: 100%; padding: 18px; border-radius: 35px; font-weight: bold; font-size: 16px; margin-top: 15px; cursor: pointer; transition: 0.2s; }
+        .confirm-btn:active { transform: scale(0.98); opacity: 0.9; }
+
+        .info-box { background: rgba(196, 255, 0, 0.05); border: 1px solid rgba(196, 255, 0, 0.2); padding: 15px; margin-top: 20px; border-radius: 12px; }
+        .info-text { font-size: 12px; color: #8a94ad; line-height: 1.5; margin: 0; }
+        .highlight { color: #c4ff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="back-btn">‹</a>
+        <span class="title">Retirer</span>
+    </div>
+
+    <div class="card">
+        <div class="balance-label">Actifs actuellement disponibles (USDT)</div>
+        <div class="balance-val">0.000000</div>
+    </div>
+
+    <div class="input-group">
+        <span class="label">Sélectionner le réseau principal</span>
+        <div class="network-box">
+            <img src="https://cryptologos.cc/logos/tether-usdt-logo.png">
+            BEP20-USDT
+        </div>
+    </div>
+
+    <div class="input-group">
+        <span class="label">Adresse de retrait</span>
+        <input type="text" placeholder="Veuillez saisir ou appuyer longuement pour coller">
+    </div>
+
+    <div class="input-group">
+        <span class="label">Montant du retrait</span>
+        <input type="number" placeholder="Montant minimum de retrait : 1.0000 USDT">
+    </div>
+
+    <div class="input-group">
+        <span class="label">Mot de passe de sécurité</span>
+        <input type="password" placeholder="Mot de passe de sécurité">
+    </div>
+
+    <button class="confirm-btn" onclick="alert('Votre demande de retrait a été soumise !')">Confirmer</button>
+
+    <div class="info-box">
+        <p class="info-text">
+            <span class="highlight">Rappel chaleureux :</span><br>
+            Les membres <span class="highlight">VIP 1</span> peuvent effectuer un retrait de <span class="highlight">1 USDT chaque jour</span> sans condition de parrainage. 
+            Assurez-vous que l'adresse est correcte sur le réseau BEP20.
+        </p>
+    </div>
+</body>
+</html>
