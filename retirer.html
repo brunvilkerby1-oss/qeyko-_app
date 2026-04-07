@@ -1,94 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retrait - Qeyko</title>
+    <title>Retrait - Qeyko Mining</title>
     <style>
-        body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
-        .container { max-width: 500px; margin: auto; }
-        .card { background: #161b2d; border-radius: 20px; padding: 25px; border: 1px solid #232a45; margin-top: 20px; }
-        .logo-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; opacity: 0.8; }
-        .logo-item { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #26a17b; font-size: 10px; }
-        
-        .balance-info { background: #0f1424; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #ff3e3e; }
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 12px; color: #8a94ad; margin-left: 5px; }
-        input { background: #0f1424; border: 1px solid #232a45; color: white; width: 100%; padding: 12px; border-radius: 10px; margin-top: 5px; box-sizing: border-box; outline: none; }
-        
-        .network-alert { font-size: 11px; color: #ffb100; margin-bottom: 20px; background: rgba(255, 177, 0, 0.1); padding: 10px; border-radius: 8px; }
-        .withdraw-btn { background: #333; color: #666; padding: 15px; border-radius: 12px; width: 100%; border: none; font-weight: bold; cursor: not-allowed; transition: 0.3s; }
-        .active-btn { background: linear-gradient(90deg, #ff3e3e, #ff6b6b); color: white; cursor: pointer; }
-        
-        .back-link { display: block; margin-top: 25px; color: #4e5a78; text-decoration: none; font-size: 14px; }
+        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 15px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 20px; cursor: pointer; }
+        .card { background: #242936; border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #3d4452; }
+        .balance-label { color: #8a94ad; font-size: 13px; }
+        .balance-val { color: #c4ff00; font-size: 28px; font-weight: bold; margin: 10px 0; }
+        .input-group { margin-bottom: 18px; }
+        .label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #f0f0f0; }
+        .network-badge { background: #c4ff00; color: black; padding: 6px 14px; border-radius: 5px; font-size: 12px; font-weight: bold; display: inline-block; }
+        input { width: 100%; background: #1a1d26; border: 1px solid #3d4452; padding: 12px; border-radius: 8px; color: white; box-sizing: border-box; font-size: 14px; outline: none; }
+        input:focus { border-color: #c4ff00; }
+        .confirm-btn { background: #c4ff00; color: black; border: none; width: 100%; padding: 16px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 10px; cursor: pointer; }
+        .info-box { background: rgba(196, 255, 0, 0.1); border-left: 4px solid #c4ff00; padding: 10px; margin-top: 15px; border-radius: 4px; }
+        .info-text { font-size: 12px; color: #8a94ad; line-height: 1.4; }
+        .vip-note { color: #c4ff00; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Retire Pwofi</h2>
-        
-        <div class="logo-container">
-            <div class="logo-item">USDT</div>
-            <div class="logo-item" style="color:#2575fc">BEP20</div>
-        </div>
-
-        <div class="card">
-            <div class="balance-info">
-                <div style="font-size: 12px; color: #8a94ad;">Pwofi ki disponib</div>
-                <div id="pwofi-display" style="font-size: 24px; font-weight: bold; color: #ff3e3e;">0.00 USDT</div>
-            </div>
-
-            <div class="input-group">
-                <label>Kantite ou vle retire</label>
-                <input type="number" id="amount" placeholder="Min. 5 USDT" oninput="checkBalance()">
-            </div>
-
-            <div class="input-group">
-                <label>Adrès Portefeuille (BEP20)</label>
-                <input type="text" id="wallet" placeholder="0x...">
-            </div>
-
-            <div class="network-alert">
-                ⚠️ Asire w se yon adrès <strong>BEP20</strong> pou w pa pèdi kòb la.
-            </div>
-
-            <button id="withdraw-button" class="withdraw-btn" onclick="processWithdrawal()">PA GEN PWOFI DISPONIB</button>
-        </div>
-
-        <a href="index.html" class="back-link">← Retounen nan Dashboard</a>
+    <div class="header">
+        <a href="index.html" class="back-btn">‹</a>
+        <span style="font-weight: bold; font-size: 18px;">Retrait de fonds</span>
     </div>
 
-    <script>
-        // Simulation pwofi (Ou ka chanje sa selon VIP moun nan)
-        let pwofiDisponib = 0.00; 
+    <div class="card">
+        <div class="balance-label">Actifs disponibles (USDT)</div>
+        <div class="balance-val">0.0000</div>
+    </div>
 
-        function checkBalance() {
-            const btn = document.getElementById('withdraw-button');
-            const amountInput = document.getElementById('amount').value;
+    <div class="input-group">
+        <span class="label">Réseau de retrait</span>
+        <div class="network-badge">USDT-BEP20</div>
+    </div>
 
-            if (pwofiDisponib > 0 && amountInput >= 5) {
-                btn.classList.add('active-btn');
-                btn.innerText = "KONFIME RETRÈ";
-                btn.disabled = false;
-            } else {
-                btn.classList.remove('active-btn');
-                btn.innerText = pwofiDisponib <= 0 ? "PA GEN PWOFI DISPONIB" : "MINIMÒM SE 5 USDT";
-                btn.disabled = true;
-            }
-        }
+    <div class="input-group">
+        <span class="label">Adresse de réception (BEP20)</span>
+        <input type="text" placeholder="Entrez votre adresse USDT BEP20">
+    </div>
 
-        function processWithdrawal() {
-            const amount = document.getElementById('amount').value;
-            const wallet = document.getElementById('wallet').value;
-            if(wallet.length < 10) {
-                alert("Adrès la pa sanble bon!");
-                return;
-            }
-            alert("Demande de " + amount + " USDT envoyée avec succès !");
-        }
+    <div class="input-group">
+        <span class="label">Montant à retirer</span>
+        <input type="number" placeholder="Minimum: 1.00 USDT">
+    </div>
 
-        // Tcheke balans lan lè paj la louvri
-        checkBalance();
-    </script>
+    <div class="input-group">
+        <span class="label">Mot de passe de transaction</span>
+        <input type="password" placeholder="Votre mot de passe">
+    </div>
+
+    <button class="confirm-btn" onclick="alert('Demande de retrait soumise avec succès !')">Confirmer le retrait</button>
+
+    <div class="info-box">
+        <p class="info-text">
+            <span class="vip-note">Règle VIP 1 :</span> Les membres VIP 1 peuvent retirer jusqu'à <span class="vip-note">1 USDT par jour</span> sans obligation d'inviter des nouveaux membres.<br><br>
+            Le délai de traitement est de 5 à 30 minutes sur le réseau BEP20.
+        </p>
+    </div>
 </body>
 </html>
