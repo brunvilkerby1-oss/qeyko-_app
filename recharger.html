@@ -1,93 +1,68 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recharger Sélectionner</title>
+    <title>Dépôt USDT - Qeyko</title>
     <style>
-        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; }
-        .header { display: flex; align-items: center; margin-bottom: 25px; padding-top: 10px; }
-        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 30px; cursor: pointer; }
-        .title { font-size: 18px; font-weight: bold; }
-        
-        .list-container { background: #242936; border-radius: 15px; overflow: hidden; border: 1px solid #3d4452; }
-        .item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #2d3340; cursor: pointer; transition: 0.2s; }
-        .item:active { background: #2d3340; }
-        
-        /* Style pou logo yo pa janm bay erè */
-        .logo-wrap { width: 32px; height: 32px; margin-right: 15px; border-radius: 50%; background: #3d4452; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .name { flex-grow: 1; font-size: 14px; font-weight: bold; }
-        .arrow { color: #8a94ad; font-size: 18px; }
-
-        /* Seksyon adrès la */
-        #address-section { display: none; background: #1a1d26; padding: 20px; text-align: center; border-top: 1px solid #3d4452; animation: fadeIn 0.3s ease; }
-        .address-box { background: #242936; border: 1px dashed #c4ff00; padding: 15px; border-radius: 12px; word-break: break-all; color: #c4ff00; font-family: monospace; font-size: 13px; margin: 15px 0; }
-        .copy-btn { background: #c4ff00; color: black; border: none; padding: 12px; border-radius: 25px; font-weight: bold; width: 100%; cursor: pointer; font-size: 14px; }
-        .warning { font-size: 11px; color: #8a94ad; line-height: 1.4; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --primary: #c4ff00; --bg-dark: #0f1117; --card-bg: #1a1d26; --border: #2d3340; --text-sec: #8a94ad; }
+        body { background: var(--bg-dark); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 25px; }
+        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 15px; }
+        .addr-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        .network-tag { background: rgba(196, 255, 0, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        .qr-code { width: 160px; height: 160px; background: white; margin: 10px auto; padding: 10px; border-radius: 12px; }
+        .qr-code img { width: 100%; height: auto; }
+        .addr-box { background: #0f1117; border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 13px; word-break: break-all; color: var(--primary); font-family: monospace; cursor: pointer; }
+        .copy-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 16px; border-radius: 30px; font-weight: bold; margin-top: 25px; cursor: pointer; font-size: 15px; }
+        .copy-btn:active { transform: scale(0.98); }
+        .warning { font-size: 12px; color: var(--text-sec); margin-top: 25px; line-height: 1.6; text-align: left; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="back-btn">‹</a>
-        <span class="title">Recharger Sélectionner</span>
+        <span style="font-weight:bold; font-size: 18px;">Recharger USDT</span>
     </div>
 
-    <div class="list-container">
-        <div class="item" onclick="toggleAddr()">
-            <div class="logo-wrap"><img src="https://img.icons8.com/color/48/tether.png" onerror="this.style.display='none'"></div>
-            <span class="name">BEP20-USDT</span>
-            <span class="arrow">▼</span>
-        </div>
+    <div class="addr-card">
+        <span class="network-tag">Réseau : BEP20 (BSC)</span>
         
-        <div id="address-section">
-            <p class="warning">Veuillez envoyer uniquement des <b>USDT (BEP20)</b>. L'arrivée est estimée en 5 minutes.</p>
-            <div class="address-box" id="wallet-addr">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396</div>
-            <button class="copy-btn" onclick="copyAddress()">COPIER L'ADRESSE</button>
+        <div style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Scannez le QR Code ou copiez l'adresse</div>
+        
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x7fD5...VOTRE_ADRESSE_ICI..." alt="QR Code">
         </div>
 
-        <div class="item">
-            <div class="logo-wrap"><img src="https://img.icons8.com/color/48/binance-coin.png" onerror="this.style.display='none'"></div>
-            <span class="name">BNB (Smart Chain)</span>
-            <span class="arrow">›</span>
+        <div class="addr-box" id="wallet-addr" onclick="copyAddr()">
+            0x7fD5...votre_adresse_bep20_ici...
         </div>
 
-        <div class="item">
-            <div class="logo-wrap"><img src="https://img.icons8.com/officel/40/tron.png" onerror="this.style.display='none'"></div>
-            <span class="name">TRC20-USDT</span>
-            <span class="arrow">›</span>
-        </div>
+        <button class="copy-btn" onclick="copyAddr()">Copier l'adresse de dépôt</button>
+    </div>
 
-        <div class="item">
-            <div class="logo-wrap"><img src="https://img.icons8.com/color/48/ethereum.png" onerror="this.style.display='none'"></div>
-            <span class="name">ETH (ERC20)</span>
-            <span class="arrow">›</span>
-        </div>
-
-        <div class="item">
-            <div class="logo-wrap"><img src="https://img.icons8.com/color/48/polygon.png" onerror="this.style.display='none'"></div>
-            <span class="name">POLYGON-USDT</span>
-            <span class="arrow">›</span>
-        </div>
+    <div class="warning">
+        <strong style="color: #ff4d4d;">⚠️ Important :</strong><br>
+        • Envoyez uniquement des <span style="color:var(--primary)">USDT</span> via le réseau <span style="color:var(--primary)">BEP20</span>.<br>
+        • Le dépôt minimum est de **5.00 USDT**.<br>
+        • Les fonds seront crédités après confirmation sur la blockchain.
     </div>
 
     <script>
-        function toggleAddr() {
-            const section = document.getElementById('address-section');
-            section.style.display = (section.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function copyAddress() {
-            const addr = document.getElementById('wallet-addr').innerText;
-            navigator.clipboard.writeText(addr).then(() => {
-                alert("Adresse copiée avec succès !");
+        function copyAddr() {
+            var addrText = document.getElementById('wallet-addr').innerText;
+            
+            // Metòd pwofesyonèl pou kopye
+            navigator.clipboard.writeText(addrText).then(function() {
+                alert("✅ Adresse BEP20 copiée !");
+            }, function() {
+                // Si navigatè a bloke clipboard
+                alert("Erreur lors de la copie.");
             });
         }
     </script>
+
 </body>
 </html>
+
