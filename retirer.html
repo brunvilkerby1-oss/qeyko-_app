@@ -19,7 +19,6 @@
     </style>
 </head>
 <body>
-
     <div class="header">
         <a href="index.html" class="back-btn">‹</a>
         <span style="font-weight:bold;">Retrait USDT</span>
@@ -49,21 +48,35 @@
             3. Vérifiez bien votre adresse <span class="highlight">BEP20</span>.
         </p>
     </div>
-
-    <script>
+            <script>
         function lancerRetrait() {
+            // METE KONBE KÒB MOUN NAN GENYEN LA (Balans li)
+            var soldeActuel = 0.00; 
+
             var valWallet = document.getElementById('wallet').value;
-            var valAmount = document.getElementById('amount').value;
+            var valAmount = parseFloat(document.getElementById('amount').value);
             var valPass = document.getElementById('password').value;
 
-            if(valWallet === "" || valAmount === "" || valPass === "") {
+            // SI YON KAZ VID
+            if(valWallet === "" || isNaN(valAmount) || valPass === "") {
                 alert("❌ Erreur: Tous les champs sont obligatoires !");
-            } else if(valAmount < 1) {
+            } 
+            // SI MOUN NAN MANDE PLIS KÒB PASE SA L GENYEN
+            else if(valAmount > soldeActuel) {
+                alert("❌ Solde insuffisant !\n\nVotre balance est de " + soldeActuel.toFixed(2) + " USDT. Vous ne pouvez pas retirer " + valAmount.toFixed(2) + " USDT.");
+            }
+            // SI L METE MWENS PASE 1 USDT
+            else if(valAmount < 1) {
                 alert("❌ Erreur: Le montant minimum est de 1.00 USDT.");
-            } else {
-                alert("✅ Succès !\n\nVotre demande de retrait de " + valAmount + " USDT a été soumise. \nTraitement en cours sur la BSC Network.");
+            } 
+            // SI TOUT BAGAY BON
+            else {
+                alert("✅ Succès !\n\nVotre demande de retrait de " + valAmount + " USDT a été soumise.");
                 window.location.href = "index.html";
             }
+        }
+    </script>
+
         }
     </script>
 
