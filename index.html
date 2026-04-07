@@ -1,1 +1,116 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qeyko Mining - Interface</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { background-color: #1a1d26; color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 15px; text-align: center; }
+        
+        .header { margin: 20px 0; }
+        .logo-text { font-size: 22px; font-weight: bold; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+        .status { font-size: 11px; color: #c4ff00; margin-top: 5px; }
+
+        .balance-card { 
+            background: linear-gradient(145deg, #242936, #1a1d26); 
+            border-radius: 20px; 
+            padding: 30px 20px; 
+            margin-bottom: 25px; 
+            border: 1px solid #3d4452;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .bal-label { color: #8a94ad; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .bal-value { font-size: 36px; font-weight: bold; color: #c4ff00; margin: 10px 0; }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        
+        .menu-item { 
+            background: #242936; 
+            border-radius: 18px; 
+            padding: 20px 10px; 
+            text-decoration: none; 
+            color: white; 
+            border: 1px solid #3d4452;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .menu-item:active { transform: scale(0.95); background: #2d3340; }
+        
+        /* Bouton Recharger a ki gen plis koulè */
+        .recharge-btn { 
+            background: linear-gradient(135deg, #c4ff00 0%, #9bc400 100%); 
+            color: #000; 
+            border: none; 
+            font-weight: bold;
+        }
+
+        .icon { font-size: 28px; margin-bottom: 8px; }
+        .label { font-size: 13px; font-weight: 600; }
+
+        .footer { margin-top: 40px; color: #4e5a78; font-size: 10px; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-text">QEYKO MINING</div>
+        <div class="status">● SYSTÈME DE MINAGE ACTIF</div>
+    </div>
+
+    <div class="balance-card">
+        <div class="bal-label">Actifs Totaux (USDT)</div>
+        <div class="bal-value">0.000000</div>
+        <div style="font-size: 12px; color: #8a94ad;">Profit d'aujourd'hui: +0.00</div>
+    </div>
+
+    <div class="menu-grid">
+        <a href="recharger.html" class="menu-item recharge-btn">
+            <span class="icon">📥</span>
+            <span class="label">Recharger</span>
+        </a>
+
+        <a href="retirer.html" class="menu-item">
+            <span class="icon">📤</span>
+            <span class="label">Retirer</span>
+        </a>
+
+        <a href="vip.html" class="menu-item">
+            <span class="icon">💎</span>
+            <span class="label">Packs VIP</span>
+        </a>
+
+        <a href="parrainage.html" class="menu-item">
+            <span class="icon">👥</span>
+            <span class="label">Invitation</span>
+        </a>
+
+        <a href="parametres.html" class="menu-item">
+            <span class="icon">⚙️</span>
+            <span class="label">Paramètres</span>
+        </a>
+
+        <a href="statistiques.html" class="menu-item">
+            <span class="icon">📊</span>
+            <span class="label">Données</span>
+        </a>
+    </div>
+
+    <div class="footer">
+        © 2026 QEYKO CRYPTO ASSETS GLOBAL<br>
+        SÉCURISÉ PAR LA BINANCE SMART CHAIN
+    </div>
+
+    <script>
+        const tele = window.Telegram.WebApp;
+        tele.expand(); // Pou app la pran tout ekran an
+        tele.ready();
+        
+        // Pou chanje koulè header Telegram lan pou l mache ak design nou an
+        tele.setHeaderColor('#1a1d26');
+    </script>
+</body>
+</html>
