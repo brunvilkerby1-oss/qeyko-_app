@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrait - Qeyko</title>
+    <style>
+        body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
+        .container { max-width: 500px; margin: auto; }
+        .card { background: #161b2d; border-radius: 20px; padding: 25px; border: 1px solid #232a45; margin-top: 20px; }
+        .logo-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; opacity: 0.8; }
+        .logo-item { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #26a17b; font-size: 10px; }
+        
+        .balance-info { background: #0f1424; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #ff3e3e; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 12px; color: #8a94ad; margin-left: 5px; }
+        input { background: #0f1424; border: 1px solid #232a45; color: white; width: 100%; padding: 12px; border-radius: 10px; margin-top: 5px; box-sizing: border-box; outline: none; }
+        
+        .network-alert { font-size: 11px; color: #ffb100; margin-bottom: 20px; background: rgba(255, 177, 0, 0.1); padding: 10px; border-radius: 8px; }
+        .withdraw-btn { background: #333; color: #666; padding: 15px; border-radius: 12px; width: 100%; border: none; font-weight: bold; cursor: not-allowed; transition: 0.3s; }
+        .active-btn { background: linear-gradient(90deg, #ff3e3e, #ff6b6b); color: white; cursor: pointer; }
+        
+        .back-link { display: block; margin-top: 25px; color: #4e5a78; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Retire Pwofi</h2>
+        
+        <div class="logo-container">
+            <div class="logo-item">USDT</div>
+            <div class="logo-item" style="color:#2575fc">BEP20</div>
+        </div>
+
+        <div class="card">
+            <div class="balance-info">
+                <div style="font-size: 12px; color: #8a94ad;">Pwofi ki disponib</div>
+                <div id="pwofi-display" style="font-size: 24px; font-weight: bold; color: #ff3e3e;">0.00 USDT</div>
+            </div>
+
+            <div class="input-group">
+                <label>Kantite ou vle retire</label>
+                <input type="number" id="amount" placeholder="Min. 5 USDT" oninput="checkBalance()">
+            </div>
+
+            <div class="input-group">
+                <label>Adrès Portefeuille (BEP20)</label>
+                <input type="text" id="wallet" placeholder="0x...">
+            </div>
+
+            <div class="network-alert">
+                ⚠️ Asire w se yon adrès <strong>BEP20</strong> pou w pa pèdi kòb la.
+            </div>
+
+            <button id="withdraw-button" class="withdraw-btn" onclick="processWithdrawal()">PA GEN PWOFI DISPONIB</button>
+        </div>
+
+        <a href="index.html" class="back-link">← Retounen nan Dashboard</a>
+    </div>
+
+    <script>
+        // Simulation pwofi (Ou ka chanje sa selon VIP moun nan)
+        let pwofiDisponib = 0.00; 
+
+        function checkBalance() {
+            const btn = document.getElementById('withdraw-button');
+            const amountInput = document.getElementById('amount').value;
+
+            if (pwofiDisponib > 0 && amountInput >= 5) {
+                btn.classList.add('active-btn');
+                btn.innerText = "KONFIME RETRÈ";
+                btn.disabled = false;
+            } else {
+                btn.classList.remove('active-btn');
+                btn.innerText = pwofiDisponib <= 0 ? "PA GEN PWOFI DISPONIB" : "MINIMÒM SE 5 USDT";
+                btn.disabled = true;
+            }
+        }
+
+        function processWithdrawal() {
+            const amount = document.getElementById('amount').value;
+            const wallet = document.getElementById('wallet').value;
+            if(wallet.length < 10) {
+                alert("Adrès la pa sanble bon!");
+                return;
+            }
+            alert("Demande de " + amount + " USDT envoyée avec succès !");
+        }
+
+        // Tcheke balans lan lè paj la louvri
+        checkBalance();
+    </script>
+</body>
+</html>
