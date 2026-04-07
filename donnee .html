@@ -3,34 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Données</title>
+    <title>Statistiques - Qeyko Mining</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #12141a; --card: #1c1f29; }
-        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; padding-top: 10px; }
-        .back-btn { font-size: 30px; text-decoration: none; color: white; margin-right: 20px; }
+        :root {
+            --primary: #c4ff00;
+            --bg-dark: #0f1117;
+            --card-bg: #1a1d26;
+            --border: #2d3340;
+            --text-secondary: #8a94ad;
+        }
+
+        body { 
+            background-color: var(--bg-dark); 
+            color: white; 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            padding: 20px;
+        }
+
+        .header { display: flex; align-items: center; margin-bottom: 25px; }
+        .back-btn { font-size: 30px; text-decoration: none; color: white; margin-right: 15px; }
         .title { font-size: 20px; font-weight: bold; }
-        .stats-box { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #2d3340; margin-bottom: 20px; text-align: center; }
-        .label { color: #8a94ad; font-size: 13px; margin-bottom: 10px; }
-        .val { font-size: 24px; font-weight: bold; color: var(--primary); }
+
+        /* Kat Estatistik */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-value { font-size: 18px; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+        .stat-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; }
+
+        /* Tablo Dènye Tranzaksyon */
+        .data-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 15px;
+        }
+
+        .section-title { font-size: 15px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .data-table th { text-align: left; color: var(--text-secondary); padding: 10px 5px; border-bottom: 1px solid var(--border); }
+        .data-table td { padding: 12px 5px; border-bottom: 1px solid rgba(45, 51, 64, 0.5); }
+        
+        .address { color: var(--primary); font-family: monospace; }
+        .status-pill { 
+            background: rgba(196, 255, 0, 0.1); 
+            color: var(--primary); 
+            padding: 2px 8px; 
+            border-radius: 10px; 
+            font-size: 10px; 
+        }
     </style>
 </head>
 <body>
+
     <div class="header">
         <a href="index.html" class="back-btn">‹</a>
-        <span class="title">Données de Minage</span>
+        <span class="title">Données du Marché</span>
     </div>
-    <div class="stats-box">
-        <div class="label">REVENUS TOTAUX</div>
-        <div class="val">0.00 USDT</div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">1.4M+</div>
+            <div class="stat-label">Total Retraits</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">48.2K</div>
+            <div class="stat-label">Mineurs Actifs</div>
+        </div>
     </div>
-    <div class="stats-box">
-        <div class="label">ÉQUIPE ACTIVE</div>
-        <div class="val">0 Membres</div>
+
+    <div class="data-section">
+        <div class="section-title">🕒 Transactions en temps réel</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Adresse</th>
+                    <th>Montant</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="address">0x7a...f2e</td>
+                    <td><b>24.50 USDT</b></td>
+                    <td><span class="status-pill">Succès</span></td>
+                </tr>
+                <tr>
+                    <td class="address">0xb1...9c4</td>
+                    <td><b>105.00 USDT</b></td>
+                    <td><span class="status-pill">Succès</span></td>
+                </tr>
+                <tr>
+                    <td class="address">0x4d...a1b</td>
+                    <td><b>12.00 USDT</b></td>
+                    <td><span class="status-pill">Succès</span></td>
+                </tr>
+                <tr>
+                    <td class="address">0x9e...d3f</td>
+                    <td><b>50.00 USDT</b></td>
+                    <td><span class="status-pill">Succès</span></td>
+                </tr>
+                <tr>
+                    <td class="address">0x2c...8a2</td>
+                    <td><b>300.00 USDT</b></td>
+                    <td><span class="status-pill">Succès</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div style="text-align: center; color: #4e5a78; font-size: 12px; margin-top: 40px;">
-        Aucune donnée historique trouvée.
+
+    <div style="text-align: center; margin-top: 25px; font-size: 11px; color: var(--text-secondary);">
+        Mise à jour toutes les 60 secondes via BSC Scan
     </div>
+
 </body>
 </html>
+
 
