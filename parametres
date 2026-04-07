@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -33,42 +34,27 @@
 
     <div class="section-title">Compte & Sécurité</div>
     <div class="menu-list">
-        <a href="#" class="menu-item">
+        <div class="menu-item">
             <span class="icon">👤</span>
-            <span class="text">Profil de l'utilisateur</span>
+            <span class="text">Profil Utilisateur</span>
             <span class="arrow">›</span>
-        </a>
-        <a href="#" class="menu-item">
+        </div>
+        <div class="menu-item">
             <span class="icon">🔒</span>
             <span class="text">Mot de passe de sécurité</span>
             <span class="arrow">›</span>
-        </a>
-        <a href="#" class="menu-item">
+        </div>
+        <div class="menu-item">
             <span class="icon">🔑</span>
             <span class="text">Clé de transaction</span>
             <span class="value">Activée</span>
             <span class="arrow">›</span>
-        </a>
+        </div>
     </div>
 
-    <div class="section-title">Préférences</div>
+    <div class="section-title">Support & Aide</div>
     <div class="menu-list">
         <a href="#" class="menu-item">
-            <span class="icon">🌐</span>
-            <span class="text">Langue</span>
-            <span class="value">Français</span>
-            <span class="arrow">›</span>
-        </a>
-        <a href="#" class="menu-item">
-            <span class="icon">🔔</span>
-            <span class="text">Notifications de minage</span>
-            <span class="arrow">›</span>
-        </a>
-    </div>
-
-    <div class="section-title">Support & Légal</div>
-    <div class="menu-list">
-        <a href="https://t.me/SmartAsset_Kerby_Bot" class="menu-item">
             <span class="icon">🎧</span>
             <span class="text">Service Client 24/7</span>
             <span class="arrow">›</span>
