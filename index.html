@@ -1,147 +1,62 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qeyko Mining - Accueil</title>
+    <title>Qeyko Mining</title>
     <style>
-        :root {
-            --primary: #c4ff00; /* Vèt fliyoresan */
-            --bg-dark: #12141a;
-            --card-bg: #1c1f29;
-            --border: #2d3340;
-            --text-gray: #8a94ad;
-        }
+        :root { --primary: #c4ff00; --bg: #12141a; --card: #1c1f29; --border: #2d3340; }
+        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+        .status { color: var(--primary); font-size: 10px; background: rgba(196,255,0,0.1); padding: 5px 12px; border-radius: 20px; display: inline-block; margin-top: 8px; font-weight: bold; }
 
-        body { 
-            background-color: var(--bg-dark); 
-            color: white; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; 
-            padding: 20px;
-            -webkit-tap-highlight-color: transparent;
-        }
+        .balance-card { background: var(--card); border-radius: 24px; padding: 30px; text-align: center; border: 1px solid var(--border); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .bal-val { font-size: 38px; font-weight: bold; color: var(--primary); margin: 12px 0; }
 
-        .header { text-align: center; margin-bottom: 30px; }
-        .logo-title { 
-            font-size: 24px; 
-            font-weight: 800; 
-            letter-spacing: 3px; 
-            color: #fff;
-            text-shadow: 0 0 10px rgba(196, 255, 0, 0.3);
-        }
-        .status-bar { 
-            display: inline-block;
-            background: rgba(196, 255, 0, 0.1);
-            color: var(--primary); 
-            font-size: 10px; 
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin-top: 8px;
-            font-weight: bold;
-            border: 1px solid rgba(196, 255, 0, 0.2);
-        }
-
-        /* Kat Balans lan ak "Neon Effect" */
-        .balance-card { 
-            background: var(--card-bg); 
-            border-radius: 24px; 
-            padding: 30px 20px; 
-            margin-bottom: 30px; 
-            text-align: center;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 20px rgba(196, 255, 0, 0.05);
-        }
-        .bal-label { color: var(--text-gray); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        .bal-value { font-size: 38px; font-weight: 800; color: var(--primary); margin: 12px 0; }
-        .daily-profit { font-size: 13px; color: var(--text-gray); }
-        .daily-profit span { color: var(--primary); font-weight: bold; }
-
-        /* Grid bouton yo */
-        .menu-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; 
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .menu-item { background: var(--card); border-radius: 20px; padding: 25px 10px; text-decoration: none; color: white; display: flex; flex-direction: column; align-items: center; border: 1px solid var(--border); transition: 0.3s; }
+        .menu-item:active { transform: scale(0.95); border-color: var(--primary); }
         
-        .menu-item { 
-            background: var(--card-bg); 
-            border-radius: 20px; 
-            padding: 25px 15px; 
-            text-decoration: none; 
-            color: white; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .menu-item:active { transform: scale(0.92); border-color: var(--primary); }
-
-        /* Bouton Recharger a ki gen bèl koulè fliyoresan */
-        .recharger-btn { 
-            background: linear-gradient(145deg, #c4ff00, #a8db00); 
-            border: none;
-            box-shadow: 0 5px 15px rgba(196, 255, 0, 0.3);
-        }
-        .recharger-btn .label, .recharger-btn .icon { color: #000 !important; }
+        .recharger-btn { background: var(--primary); border: none; }
+        .recharger-btn .label, .recharger-btn .icon { color: black !important; }
 
         .icon { font-size: 28px; margin-bottom: 12px; }
-        .label { font-size: 14px; font-weight: 700; color: #fff; }
-
-        .footer { 
-            margin-top: 50px; 
-            text-align: center; 
-            font-size: 11px; 
-            color: var(--text-gray); 
-            line-height: 1.6;
-            opacity: 0.7;
-        }
+        .label { font-size: 14px; font-weight: bold; }
+        .footer { text-align: center; font-size: 11px; color: #4e5a78; margin-top: 40px; line-height: 1.5; }
     </style>
 </head>
 <body>
-
     <div class="header">
-        <div class="logo-title">QEYKO MINING</div>
-        <div class="status-bar">● SYSTÈME DE MINAGE ACTIF</div>
+        <div class="logo">QEYKO MINING</div>
+        <div class="status">● SYSTÈME DE MINAGE ACTIF</div>
     </div>
 
     <div class="balance-card">
-        <div class="bal-label">Actifs Totaux (USDT)</div>
-        <div class="bal-value">0.000000</div>
-        <div class="daily-profit">Profit d'aujourd'hui: <span>+0.00 USDT</span></div>
+        <div style="color:#8a94ad; font-size:12px; text-transform: uppercase;">Actifs Totaux (USDT)</div>
+        <div class="bal-val">0.000000</div>
+        <div style="font-size:12px; color:#8a94ad;">Profit d'aujourd'hui: <span style="color:var(--primary)">+0.00 USDT</span></div>
     </div>
 
     <div class="menu-grid">
         <a href="recharger.html" class="menu-item recharger-btn">
-            <span class="icon">📥</span>
-            <span class="label">Recharger</span>
+            <span class="icon">📥</span><span class="label">Recharger</span>
         </a>
-
         <a href="retirer.html" class="menu-item">
-            <span class="icon">📤</span>
-            <span class="label">Retirer</span>
+            <span class="icon">📤</span><span class="label">Retirer</span>
         </a>
-
         <a href="vip.html" class="menu-item">
-            <span class="icon">💎</span>
-            <span class="label">Packs VIP</span>
+            <span class="icon">💎</span><span class="label">Packs VIP</span>
         </a>
-
         <a href="parrainage.html" class="menu-item">
-            <span class="icon">👥</span>
-            <span class="label">Invitation</span>
+            <span class="icon">👥</span><span class="label">Invitation</span>
         </a>
-
         <a href="parametres.html" class="menu-item">
-            <span class="icon">⚙️</span>
-            <span class="label">Paramètres</span>
+            <span class="icon">⚙️</span><span class="label">Paramètres</span>
         </a>
-
         <a href="statistiques.html" class="menu-item">
-            <span class="icon">📊</span>
-            <span class="label">Données</span>
+            <span class="icon">📊</span><span class="label">Données</span>
         </a>
     </div>
 
@@ -149,7 +64,5 @@
         © 2026 QEYKO CRYPTO ASSETS GLOBAL<br>
         SÉCURISÉ PAR LA BINANCE SMART CHAIN (BEP20)
     </div>
-
 </body>
 </html>
-
