@@ -3,18 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharger - Qeyko</title>
     <style>
-        body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .addr-card { background: #161b2d; padding: 20px; border-radius: 15px; border: 1px solid #2575fc; margin-top: 20px; }
-        .copy-btn { background: #2575fc; color: white; padding: 10px; border-radius: 10px; border: none; margin-top: 15px; width: 100%; }
+        body { background-color: #0a0e1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; margin: 0; }
+        .container { max-width: 500px; margin: auto; }
+        .card { background: #161b2d; border-radius: 20px; padding: 30px; border: 1px solid #232a45; margin-top: 20px; }
+        .qr-placeholder { background: white; width: 150px; height: 150px; margin: 0 auto 20px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; font-size: 12px; }
+        .address-box { background: #0f1424; border: 1px dashed #2575fc; padding: 15px; border-radius: 12px; word-break: break-all; color: #00d2ff; font-family: monospace; font-size: 14px; margin-bottom: 20px; }
+        .instruction { color: #8a94ad; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
+        .copy-btn { background: linear-gradient(90deg, #2575fc, #6a11cb); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        .back-link { display: block; margin-top: 25px; color: #4e5a78; text-decoration: none; font-size: 14px; }
     </style>
 </head>
 <body>
-    <h3>RECHARGER USDT (BEP20)</h3>
-    <div class="addr-card">
-        <p style="font-size: 11px; color: #8a94ad;">Kopye adrès sa a:</p>
-        <strong style="word-break: break-all; color: #00d2ff;">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396</strong>
+    <div class="container">
+        <h2>Depo USDT</h2>
+        <div class="card">
+            <div class="instruction">
+                Voye sèlman <strong>USDT (BEP20)</strong> sou adrès sa a. Depo a ap parèt sou balans ou apre konfimasyon sou rezo a.
+            </div>
+            
+            <div class="address-box" id="wallet-addr">
+                0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396
+            </div>
+
+            <button class="copy-btn" onclick="copyAddress()">KOPYE ADRÈS LA</button>
+        </div>
+
+        <a href="index.html" class="back-link">← Retounen nan Dashboard</a>
     </div>
-    <button class="copy-btn" onclick="window.history.back()">Retounen</button>
+
+    <script>
+        function copyAddress() {
+            const addr = "0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396";
+            navigator.clipboard.writeText(addr).then(() => {
+                alert("Adrès la kopye ak siksè!");
+            });
+        }
+    </script>
 </body>
 </html>
