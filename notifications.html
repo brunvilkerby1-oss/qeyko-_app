@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Qeyko</title>
+    <style>
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; }
+        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
+        
+        .notif-item { 
+            background: var(--card); 
+            border-left: 4px solid var(--primary); 
+            padding: 15px; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            border-top: 1px solid var(--border);
+        }
+        .notif-title { font-weight: bold; font-size: 14px; margin-bottom: 5px; color: var(--primary); }
+        .notif-msg { font-size: 13px; color: #d1d5db; line-height: 1.4; }
+        .notif-time { font-size: 10px; color: #8a94ad; margin-top: 8px; text-align: right; }
+        
+        .type-depot { border-left-color: #c4ff00; }
+        .type-retrait { border-left-color: #ff4d4d; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="parametres.html" class="back-btn">‹</a>
+        <span style="font-weight:bold;">Notifications</span>
+    </div>
+
+    <div id="notif-list">
+        </div>
+
+    <script>
+        // Lojik pou jenere mesaj otomatik yo
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('fr-FR');
+        const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+
+        const notifications = [
+            {
+                title: "✅ Dépôt Réussi & Plan Activé",
+                msg: "Votre dépôt a été confirmé. Le plan VIP a été activé automatiquement sur votre compte.",
+                time: "Aujourd'hui, " + timeStr,
+                type: "depot"
+            },
+            {
+                title: "💸 Retrait Effectué",
+                msg: "Votre demande de retrait a été traitée avec succès vers votre adresse BEP20.",
+                time: "Hier, 14:20",
+                type: "retrait"
+            }
+        ];
+
+        const list = document.getElementById('notif-list');
+        notifications.forEach(n => {
+            list.innerHTML += `
+                <div class="notif-item type-${n.type}">
+                    <div class="notif-title">${n.title}</div>
+                    <div class="notif-msg">${n.msg}</div>
+                    <div class="notif-time">${n.time}</div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
