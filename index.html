@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,29 +8,24 @@
         :root { 
             --primary: #c4ff00; 
             --bg-dark: #090b10; 
-            --card-bg: rgba(26, 29, 38, 0.8); 
+            --card-bg: rgba(26, 29, 38, 0.9); 
             --border: rgba(255, 255, 255, 0.1); 
             --text-sec: #8a94ad; 
         }
 
         body { 
-            background: radial-gradient(circle at top right, #1a1d26, #090b10);
+            background: radial-gradient(circle at top, #1a1d26, #090b10);
             color: white; 
-            font-family: 'Inter', -apple-system, sans-serif; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
             margin: 0; 
             padding: 20px; 
             box-sizing: border-box;
             min-height: 100vh;
         }
 
-        /* Effet d'entrée */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        body { animation: fadeIn 0.5s ease-out; }
-
-        /* Carte Balance Premium */
+        /* Carte du Solde */
         .balance-card { 
             background: var(--card-bg); 
-            backdrop-filter: blur(10px);
             padding: 30px; 
             border-radius: 24px; 
             border: 1px solid var(--border); 
@@ -39,90 +33,88 @@
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .balance-val { font-size: 36px; font-weight: 800; color: var(--primary); margin: 10px 0; letter-spacing: -1px; }
+        .balance-val { font-size: 34px; font-weight: 800; color: var(--primary); margin: 8px 0; }
         .balance-label { color: var(--text-sec); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 
         /* Grille du Menu */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .menu-btn { 
             background: var(--card-bg); 
             border: 1px solid var(--border); 
-            padding: 22px 10px; 
+            padding: 20px 10px; 
             border-radius: 20px; 
             text-decoration: none; 
             color: white; 
             text-align: center; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: 0.2s; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             gap: 12px;
         }
 
-        /* Effet Hover/Active */
-        .menu-btn:active { transform: scale(0.92); border-color: var(--primary); background: rgba(196, 255, 0, 0.05); }
+        .menu-btn:active { transform: scale(0.95); border-color: var(--primary); background: rgba(196, 255, 0, 0.05); }
         
-        .btn-icon-wrapper {
-            width: 45px;
-            height: 45px;
+        .icon-wrapper {
+            width: 44px;
+            height: 44px;
             background: rgba(255,255,255,0.03);
-            border-radius: 14px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
         }
 
-        .usdt-logo { width: 30px; height: 30px; border-radius: 50%; }
-        .btn-label { font-size: 13px; font-weight: 600; letter-spacing: 0.3px; }
+        .btn-label { font-size: 13px; font-weight: 600; }
 
         /* Pied de page */
-        .footer-note { text-align: center; color: var(--text-sec); font-size: 11px; margin-top: 40px; padding-bottom: 20px; }
-        .highlight { color: var(--primary); font-weight: 700; }
+        .footer-note { text-align: center; color: var(--text-sec); font-size: 10px; margin-top: 40px; line-height: 1.6; }
+        .highlight { color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="balance-card">
-        <div class="balance-label">Solde Total Disponible</div>
-        <div class="balance-val">0.00 <span style="font-size: 18px;">USDT</span></div>
-        <div style="font-size: 11px; color: var(--text-sec); background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 20px; margin-top: 10px;">
-            Réseau : <span class="highlight">BEP20 (BSC)</span>
-        </div>
+        <div class="balance-label">Solde Total USDT</div>
+        <div class="balance-val">0.000000</div>
+        <div style="font-size: 11px; color: var(--text-sec);">Réseau sécurisé : <span class="highlight">BEP20</span></div>
     </div>
 
     <div class="menu-grid">
         
-        <a href="recharger.html" class="menu-btn" style="border-color: rgba(196, 255, 0, 0.3);">
-            <div class="btn-icon-wrapper">
-                <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=025" class="usdt-logo" alt="USDT">
+        <a href="recharger.html" class="menu-btn" style="border-color: rgba(196, 255, 0, 0.4);">
+            <div class="icon-wrapper">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" fill="#26A17B"/>
+                    <path d="M12.72 8.36h3.09V6.18H8.18v2.18h3.09v5.46h1.45V8.36zM15.82 10.55H8.18v1.09c0 1.45 1.71 2.6 3.82 2.6s3.82-1.15 3.82-2.6v-1.09z" fill="white"/>
+                </svg>
             </div>
             <span class="btn-label" style="color: var(--primary);">Recharger</span>
         </a>
 
         <a href="retirer.html" class="menu-btn">
-            <div class="btn-icon-wrapper">💸</div>
+            <div class="icon-wrapper" style="font-size: 24px;">💸</div>
             <span class="btn-label">Retrait</span>
         </a>
 
         <a href="vip.html" class="menu-btn">
-            <div class="btn-icon-wrapper">💎</div>
+            <div class="icon-wrapper" style="font-size: 24px;">💎</div>
             <span class="btn-label">Packs VIP</span>
         </a>
 
         <a href="donnees.html" class="menu-btn">
-            <div class="btn-icon-wrapper">📊</div>
+            <div class="icon-wrapper" style="font-size: 24px;">📊</div>
             <span class="btn-label">Données</span>
         </a>
 
         <a href="parrainage.html" class="menu-btn">
-            <div class="btn-icon-wrapper">👥</div>
+            <div class="icon-wrapper" style="font-size: 24px;">👥</div>
             <span class="btn-label">Invitation</span>
         </a>
 
         <a href="parametres.html" class="menu-btn">
-            <div class="btn-icon-wrapper">⚙️</div>
+            <div class="icon-wrapper" style="font-size: 24px;">⚙️</div>
             <span class="btn-label">Paramètres</span>
         </a>
 
@@ -130,7 +122,7 @@
 
     <div class="footer-note">
         © 2026 <span class="highlight">QEYKO CRYPTO ASSETS GLOBAL</span><br>
-        SÉCURISÉ PAR LA BINANCE SMART CHAIN
+        SÉCURISÉ PAR LA BINANCE SMART CHAIN (BSC)
     </div>
 
 </body>
