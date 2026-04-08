@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adresse de Retrait - Qeyko</title>
+    <style>
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; }
+        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; }
+        .header { display: flex; align-items: center; margin-bottom: 30px; }
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; background:none; border:none; color:white; }
+        
+        .input-group { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        label { display: block; color: #8a94ad; font-size: 13px; margin-bottom: 10px; }
+        input { width: 100%; background: #1f242d; border: 1px solid var(--border); padding: 15px; border-radius: 10px; color: white; font-size: 14px; box-sizing: border-box; }
+        
+        .save-btn { width: 100%; margin-top: 20px; padding: 15px; background: var(--primary); color: black; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        .note { color: #ffaa00; font-size: 12px; margin-top: 15px; display: block; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="back-btn" onclick="window.location.href='securite.html'">‹</button>
+        <span style="font-weight:bold;">Adresse de Retrait</span>
+    </div>
+
+    <div class="input-group">
+        <label>Votre adresse USDT (Réseau BEP20 uniquement)</label>
+        <input type="text" id="wallet-addr" placeholder="Collez votre adresse ici...">
+        <span class="note">⚠️ Assurez-vous que l'adresse est correcte. Aucun remboursement possible en cas d'erreur.</span>
+    </div>
+
+    <button class="save-btn" onclick="saveAddress()">Enregistrer l'adresse</button>
+
+    <script>
+        // Chaje adrès la si l te deja sove
+        document.getElementById('wallet-addr').value = localStorage.getItem('user_bep20_address') || "";
+
+        function saveAddress() {
+            const addr = document.getElementById('wallet-addr').value;
+            if(addr.length > 10) {
+                localStorage.setItem('user_bep20_address', addr);
+                alert("✅ Adresse enregistrée avec succès !");
+                window.location.href = 'securite.html';
+            } else {
+                alert("❌ Veuillez entrer une adresse valide.");
+            }
+        }
+    </script>
+</body>
+</html>
