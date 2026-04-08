@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurité du Compte - Qeyko</title>
+    <style>
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; --red: #ff4d4d; }
+        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        
+        .header { display: flex; align-items: center; margin-bottom: 30px; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
+
+        .section-title { font-size: 14px; color: #8a94ad; text-transform: uppercase; margin: 20px 0 10px 5px; letter-spacing: 1px; }
+        
+        .settings-list { background: var(--card); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+        
+        .setting-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 18px; 
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .setting-item:last-child { border-bottom: none; }
+        .setting-item:active { background: #1f242d; }
+
+        .item-info { display: flex; align-items: center; gap: 15px; }
+        .item-icon { font-size: 18px; }
+        .item-label { font-size: 14px; font-weight: 500; }
+        
+        .status-badge { background: rgba(196, 255, 0, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .arrow-right { color: #5c667a; font-size: 18px; }
+
+        .btn-logout { 
+            width: 100%; 
+            margin-top: 30px; 
+            padding: 15px; 
+            background: rgba(255, 77, 77, 0.1); 
+            color: var(--red); 
+            border: 1px solid var(--red); 
+            border-radius: 12px; 
+            font-weight: bold; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="parametres.html" class="back-btn">‹</a>
+        <span style="font-weight:bold;">Sécurité du Compte</span>
+    </div>
+
+    <div class="section-title">Paramètres d'accès</div>
+    <div class="settings-list">
+        <div class="setting-item" onclick="alert('Fonctionnalité bientôt disponible')">
+            <div class="item-info">
+                <span class="item-icon">🔑</span>
+                <span class="item-label">Changer le mot de passe</span>
+            </div>
+            <span class="arrow-right">›</span>
+        </div>
+        <div class="setting-item">
+            <div class="item-info">
+                <span class="item-icon">🛡️</span>
+                <span class="item-label">Double Authentification</span>
+            </div>
+            <span class="status-badge">ACTIF</span>
+        </div>
+    </div>
+
+    <div class="section-title">Sécurité des Retraits</div>
+    <div class="settings-list">
+        <div class="setting-item">
+            <div class="item-info">
+                <span class="item-icon">🔗</span>
+                <span class="item-label">Adresse BEP20 enregistrée</span>
+            </div>
+            <span class="arrow-right">›</span>
+        </div>
+        <div class="setting-item">
+            <div class="item-info">
+                <span class="item-icon">⚙️</span>
+                <span class="item-label">Code PIN de retrait</span>
+            </div>
+            <span class="status-badge">DÉSACTIVÉ</span>
+        </div>
+    </div>
+
+    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+
+    <script>
+        function logout() {
+            if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
+                localStorage.clear();
+                window.location.href = "login.html"; // Oswa kote paj koneksyon an ye a
+            }
+        }
+    </script>
+
+</body>
+</html>
