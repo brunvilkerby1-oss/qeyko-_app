@@ -1,105 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qeyko Mining - Paramètres</title>
+    <title>Paramètres - Qeyko Mining</title>
     <style>
-        :root {
-            --primary: #c4ff00;
-            --bg-dark: #0f1117;
-            --card-bg: #1a1d26;
-            --border: #2d3340;
-            --text-secondary: #8a94ad;
-        }
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; --red: #ff4d4d; }
+        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        
+        .header { display: flex; align-items: center; margin-bottom: 30px; font-weight: bold; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; cursor: pointer; }
 
-        body { 
-            background-color: var(--bg-dark); 
-            color: white; 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; 
-            padding: 20px;
-        }
-
-        /* Header ak flèch tounen */
-        .header { 
-            display: flex; 
-            align-items: center; 
-            margin-bottom: 30px; 
-            padding-top: 10px;
-        }
-        .back-btn { 
-            font-size: 28px; 
-            text-decoration: none; 
-            color: white; 
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .title { font-size: 20px; font-weight: bold; }
-
-        /* Veso pou lis opsyon yo */
-        .settings-list { 
-            background: var(--card-bg); 
-            border-radius: 20px; 
-            border: 1px solid var(--border); 
-            overflow: hidden; 
-            margin-bottom: 30px;
-        }
-
-        /* Stil pou chak liy (bouton) */
+        .settings-list { background: var(--card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; }
+        
         .setting-item { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             padding: 20px; 
-            text-decoration: none; 
-            color: white; 
             border-bottom: 1px solid var(--border);
-            transition: background 0.2s ease;
+            text-decoration: none;
+            color: white;
+            transition: 0.2s;
         }
-
         .setting-item:last-child { border-bottom: none; }
-
-        /* Efè lè ou peze liy lan */
-        .setting-item:active { 
-            background: #242936; 
-        }
+        .setting-item:active { background: #1f242d; }
 
         .item-info { display: flex; align-items: center; gap: 15px; }
-        .item-icon { font-size: 20px; width: 25px; text-align: center; }
+        .item-icon { font-size: 20px; }
         .item-label { font-size: 15px; font-weight: 500; }
         
-        .arrow-right { color: var(--text-secondary); font-size: 12px; }
-        .lang-status { color: var(--primary); font-size: 14px; font-weight: bold; }
+        .lang-status { font-size: 14px; color: var(--primary); font-weight: bold; }
+        .arrow-right { color: #5c667a; font-size: 18px; }
 
-        /* Bouton Dekonekte */
         .logout-btn { 
             width: 100%; 
+            margin-top: 30px; 
             padding: 18px; 
-            border-radius: 35px; 
-            border: 1px solid #ff3e3e; 
-            background: rgba(255, 62, 62, 0.05); 
-            color: #ff3e3e; 
+            background: transparent; 
+            color: var(--red); 
+            border: 1px solid var(--red); 
+            border-radius: 50px; 
             font-weight: bold; 
-            font-size: 16px; 
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 20px;
+            transition: 0.3s;
         }
-
-        .logout-btn:active { 
-            transform: scale(0.96); 
-            background: rgba(255, 62, 62, 0.15); 
-        }
+        .logout-btn:active { background: rgba(255, 77, 77, 0.1); }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="index.html" class="back-btn">‹</a>
-        <span class="title">Paramètres</span>
+        <div class="back-btn" onclick="window.location.href='index.html'">‹</div>
+        <span>Paramètres</span>
     </div>
 
     <div class="settings-list">
@@ -119,7 +73,7 @@
             <span class="arrow-right">›</span>
         </a>
 
-        <a href="langue.html" class="setting-item">
+        <a href="#" class="setting-item">
             <div class="item-info">
                 <span class="item-icon">🌐</span>
                 <span class="item-label">Langue</span>
@@ -129,16 +83,33 @@
 
         <a href="notifications.html" class="setting-item">
             <div class="item-info">
-                <span class="item-icon">🔔</span>
+                <span class="item-icon" id="notif-bell">🔔</span>
                 <span class="item-label">Notifications</span>
             </div>
             <span class="arrow-right">›</span>
         </a>
     </div>
 
-    <button class="logout-btn" onclick="window.location.href='index.html'">
+    <button class="logout-btn" onclick="logoutUser()">
         Se déconnecter
     </button>
 
+    <script>
+        // Lojik pou dekonekte epi netwaye memwa
+        function logoutUser() {
+            if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
+                localStorage.clear();
+                window.location.href = "index.html";
+            }
+        }
+
+        // Si gen yon mesaj ki poko li, nou mete yon ti pwen wouj sou klòch la
+        const notifStatus = localStorage.getItem('notif_status');
+        if (notifStatus === 'pending' || notifStatus === 'active') {
+            document.getElementById('notif-bell').innerHTML = "🔔🔴";
+        }
+    </script>
+
 </body>
 </html>
+
