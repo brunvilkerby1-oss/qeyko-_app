@@ -4,20 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dépôt USDT - Qeyko</title>
+    <title>Recharger USDT - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg-dark: #0f1117; --card-bg: #1a1d26; --border: #2d3340; --text-sec: #8a94ad; }
-        body { background: var(--bg-dark); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #1a1d26; --text: #ffffff; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; margin: 0; text-align: center; }
+        
         .header { display: flex; align-items: center; margin-bottom: 25px; }
-        .back-btn { font-size: 28px; text-decoration: none; color: white; margin-right: 15px; }
-        .addr-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .usdt-logo { width: 40px; margin-bottom: 10px; }
-        .network-tag { background: rgba(196, 255, 0, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
-        .qr-code { width: 160px; height: 160px; background: white; margin: 10px auto; padding: 10px; border-radius: 12px; }
-        .qr-code img { width: 100%; height: auto; }
-        .addr-box { background: #0f1117; border: 1px solid var(--border); padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 13px; word-break: break-all; color: var(--primary); font-family: monospace; }
-        .copy-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 16px; border-radius: 30px; font-weight: bold; margin-top: 25px; cursor: pointer; font-size: 15px; }
-        .warning { font-size: 12px; color: var(--text-sec); margin-top: 25px; line-height: 1.6; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
+
+        .qr-section { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #2d3340; }
+        
+        /* Logo USDT SVG - Pa gen pwen ankò */
+        .usdt-icon { width: 50px; height: 50px; margin-bottom: 10px; }
+        
+        .network-tag { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 15px; display: block; }
+        
+        .qr-code { width: 180px; height: 180px; background: white; margin: 0 auto 20px; padding: 10px; border-radius: 12px; }
+        .qr-code img { width: 100%; }
+
+        /* Box Adrès la */
+        .address-box { background: #0b0d12; border: 1px solid #2d3340; padding: 15px; border-radius: 12px; margin-top: 10px; }
+        .address-text { font-size: 12px; color: var(--primary); font-family: monospace; word-break: break-all; }
+
+        /* Bouton Kopi a */
+        .copy-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 18px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
+        .copy-btn:active { transform: scale(0.98); opacity: 0.9; }
+
+        /* Règ yo */
+        .rules { text-align: left; margin-top: 30px; font-size: 12px; color: #8a94ad; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -27,35 +41,50 @@
         <span style="font-weight:bold; font-size: 18px;">Recharger USDT</span>
     </div>
 
-    <div class="addr-card">
-        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="usdt-logo" alt="USDT">
-        <br>
+    <div class="qr-section">
+        <svg class="usdt-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" fill="#26A17B"/>
+            <path d="M12.72 8.36h3.09V6.18H8.18v2.18h3.09v5.46h1.45V8.36zM15.82 10.55H8.18v1.09c0 1.45 1.71 2.6 3.82 2.6s3.82-1.15 3.82-2.6v-1.09z" fill="white"/>
+        </svg>
+
         <span class="network-tag">Réseau : BEP20 (BSC)</span>
         
         <div class="qr-code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=VOTRE_ADRESSE_ICI" alt="QR Code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x7fD5...VOTRE_ADRESSE_ICI..." alt="QR Code">
         </div>
 
-        <div class="addr-box" id="wallet-addr">0x7fD5...votre_adresse_ici...</div>
+        <div style="font-size: 12px; color: #8a94ad; margin-bottom: 5px; text-align: left;">Adresse du dépôt</div>
+        <div class="address-box">
+            <div class="address-text" id="wallet-addr">0x7fD5...votre_adresse_ici...</div>
+        </div>
 
         <button class="copy-btn" onclick="copyAddr()">Copier l'adresse de dépôt</button>
     </div>
 
-    <div class="warning">
-        <strong style="color: #ff4d4d;">⚠️ Important :</strong><br>
-        • Envoyez uniquement des <span style="color:var(--primary)">USDT</span> via le réseau <span style="color:var(--primary)">BEP20</span>.<br>
-        • Les fonds seront crédités automatiquement après confirmation sur la blockchain.<br>
+    <div class="rules">
+        <strong style="color: #ff4d4d;">⚠️ Rappel chaleureux :</strong><br>
+        • Envoyez uniquement des <b>USDT</b> via le réseau <b>BEP20</b>.<br>
+        • Les fonds seront crédités après confirmation sur la blockchain.<br>
         • Assurez-vous d'utiliser le bon réseau pour éviter toute perte.
     </div>
 
     <script>
         function copyAddr() {
-            var addrText = document.getElementById('wallet-addr').innerText;
-            navigator.clipboard.writeText(addrText).then(function() {
+            var addr = document.getElementById('wallet-addr').innerText;
+            navigator.clipboard.writeText(addr).then(function() {
+                alert("✅ Adresse copiée !");
+            }, function() {
+                // Si clipboard la bloke nan kèk navigatè
+                const el = document.createElement('textarea');
+                el.value = addr;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
                 alert("✅ Adresse copiée !");
             });
         }
     </script>
+
 </body>
 </html>
-
