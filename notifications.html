@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,43 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #0b0d12; --card: #161a23; --border: #242933; }
+        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; }
         body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
         
         .header { display: flex; align-items: center; margin-bottom: 25px; font-weight: bold; }
-        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
+        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; cursor: pointer; }
 
-        .notif-container { display: flex; flex-direction: column; gap: 15px; }
-        
+        #notif-container { display: flex; flex-direction: column; gap: 15px; }
+
         .notif-item { 
             background: var(--card); 
             border-left: 4px solid var(--primary); 
-            padding: 18px; 
-            border-radius: 15px; 
-            border-top: 1px solid var(--border);
-            display: none; /* Cache par défaut */
+            padding: 15px; 
+            border-radius: 12px; 
+            animation: slideIn 0.3s ease-out;
         }
-        .notif-title { font-weight: bold; font-size: 14px; margin-bottom: 6px; color: var(--primary); }
-        .notif-msg { font-size: 13px; color: #d1d5db; line-height: 1.5; }
-        .notif-time { font-size: 10px; color: #5c667a; margin-top: 10px; text-align: right; }
 
-        .empty-state { text-align: center; margin-top: 60px; color: #5c667a; font-size: 14px; }
+        .notif-title { font-weight: bold; font-size: 14px; color: var(--primary); margin-bottom: 5px; }
+        .notif-msg { font-size: 13px; color: #d1d5db; line-height: 1.4; }
+        .notif-time { font-size: 10px; color: #8a94ad; margin-top: 10px; text-align: right; }
+
+        .empty-state { text-align: center; color: #5c667a; margin-top: 100px; font-size: 14px; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="parametres.html" class="back-btn">‹</a>
+        <div class="back-btn" onclick="window.history.back()">‹</div>
         <span>Notifications</span>
     </div>
 
-    <div id="notif-list" class="notif-container">
-        <div id="msg-pending" class="notif-item" style="border-left-color: #ffaa00;">
-            <div class="notif-title">⏳ Vérification du dépôt...</div>
-            <div class="notif-msg">Le système scanne le réseau BEP20 pour confirmer votre transfert. Veuillez ne pas fermer cette page.</div>
-            <div class="notif-time">Maintenant</div>
+    <div id="notif-container">
         </div>
 
-        <div id="msg-success" class="notif-item">
-            <div class="notif-title">✅ Dépôt Réussi & Plan Activé</div>
-            <div
+    <script>
+        function loadNotifications() {
+            const container = document.getElementById('notif-container');
+            const status = localStorage.getItem('notif_status'); // 'pending' oswa 'active'
+            
+            // Si pa gen okenn estati, nou montre paj la vid
+            if (!status) {
+                container.innerHTML = `<div class="empty-state">Aucune notification pour le moment.</div>`;
+                return;
+            }
+
+            let html = "";
+
+            // Si depo a ap verifye oswa li fin aktive
+            if (status === 'pending') {
+                html += `
+                <div class="notif-item" style="border-left-color: #ffaa00;">
+                    <div class="notif-title" style="color: #ffaa00;">⏳ Vérification en cours...</div>
+                    <div class="notif-msg">Le système vérifie votre dépôt sur la blockchain. Votre plan sera activé sous peu.</div>
+                    <div class="notif-time">Maintenant</div>
+                </div>`;
+            } else if (status === 'active') {
+                html += `
+                <div class="notif-item">
+                    <div class="notif-title">✅ Dépôt Réussi & Plan Activé</div>
+                    <div class="notif-msg">Votre dépôt a été confirmé avec succès. Votre Pack VIP est désormais opérationnel.</div>
+                    <div class="notif-time">À l'instant</div>
+                </div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Lanse fonksyon an lè paj la louvri
+        loadNotifications();
+    </script>
+</body>
+</html>
