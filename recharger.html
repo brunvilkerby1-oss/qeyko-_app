@@ -7,84 +7,74 @@
     <title>Recharger USDT - Qeyko</title>
     <style>
         :root { --primary: #c4ff00; --bg: #0f1117; --card: #1a1d26; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; margin: 0; text-align: center; }
-        
-        .header { display: flex; align-items: center; margin-bottom: 25px; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; margin: 0; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; font-weight: bold; }
         .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
 
-        .qr-section { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #2d3340; }
+        .qr-section { background: var(--card); padding: 25px; border-radius: 24px; border: 1px solid #2d3340; text-align: center; }
         
-        /* Logo USDT SVG - Pa gen pwen ankò */
-        .usdt-icon { width: 50px; height: 50px; margin-bottom: 10px; }
+        .logos-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .icon-svg { width: 40px; height: 40px; }
         
         .network-tag { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 15px; display: block; }
-        
-        .qr-code { width: 180px; height: 180px; background: white; margin: 0 auto 20px; padding: 10px; border-radius: 12px; }
+        .qr-code { width: 190px; height: 190px; background: white; margin: 0 auto 20px; padding: 10px; border-radius: 12px; }
         .qr-code img { width: 100%; }
 
-        /* Box Adrès la */
-        .address-box { background: #0b0d12; border: 1px solid #2d3340; padding: 15px; border-radius: 12px; margin-top: 10px; }
-        .address-text { font-size: 12px; color: var(--primary); font-family: monospace; word-break: break-all; }
+        .address-box { background: #0b0d12; border: 1px solid #2d3340; padding: 15px; border-radius: 12px; text-align: left; }
+        .address-text { font-size: 12px; color: var(--primary); font-family: monospace; word-break: break-all; line-height: 1.4; }
 
-        /* Bouton Kopi a */
-        .copy-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 18px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
-        .copy-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-main { width: 100%; border: none; padding: 18px; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; }
+        .btn-copy { background: var(--primary); color: black; margin-top: 20px; }
+        .btn-done { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 15px; }
+        .btn-main:active { transform: scale(0.96); }
 
-        /* Règ yo */
-        .rules { text-align: left; margin-top: 30px; font-size: 12px; color: #8a94ad; line-height: 1.6; }
+        .rules { text-align: left; margin-top: 25px; font-size: 11px; color: #8a94ad; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="back-btn">‹</a>
-        <span style="font-weight:bold; font-size: 18px;">Recharger USDT</span>
+        <span>Recharger USDT</span>
     </div>
 
     <div class="qr-section">
-        <svg class="usdt-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" fill="#26A17B"/>
-            <path d="M12.72 8.36h3.09V6.18H8.18v2.18h3.09v5.46h1.45V8.36zM15.82 10.55H8.18v1.09c0 1.45 1.71 2.6 3.82 2.6s3.82-1.15 3.82-2.6v-1.09z" fill="white"/>
-        </svg>
+        <div class="logos-row">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#26A17B"/><path d="M12.72 8.36h3.09V6.18H8.18v2.18h3.09v5.46h1.45V8.36zM15.82 10.55H8.18v1.09c0 1.45 1.71 2.6 3.82 2.6s3.82-1.15 3.82-2.6v-1.09z" fill="white"/></svg>
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L4.5 5.5v13L12 22l7.5-3.5v-13L12 2z" fill="#c4ff00"/><path d="M12 18l-4-2v-4l4 2 4-2v4l-4 2z" fill="#0b0d12"/></svg>
+        </div>
 
         <span class="network-tag">Réseau : BEP20 (BSC)</span>
         
         <div class="qr-code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x7fD5...VOTRE_ADRESSE_ICI..." alt="QR Code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396" alt="QR Code">
         </div>
 
-        <div style="font-size: 12px; color: #8a94ad; margin-bottom: 5px; text-align: left;">Adresse du dépôt</div>
+        <div style="font-size: 11px; color: #8a94ad; text-align: left; margin-bottom: 5px;">Adresse du dépôt</div>
         <div class="address-box">
-            <div class="address-text" id="wallet-addr">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396... .</div>
+            <div class="address-text" id="wallet-addr">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396</div>
         </div>
 
-        <button class="copy-btn" onclick="copyAddr()">Copier l'adresse de dépôt</button>
+        <button class="btn-main btn-copy" onclick="copyAddr()">Copier l'adresse de dépôt</button>
+        <button class="btn-main btn-done" onclick="finishRecharge()">Recharge terminée</button>
     </div>
 
     <div class="rules">
-        <strong style="color: #ff4d4d;">⚠️ Rappel chaleureux :</strong><br>
+        <strong style="color: #ff4d4d;">⚠️ Rappel :</strong><br>
         • Envoyez uniquement des <b>USDT</b> via le réseau <b>BEP20</b>.<br>
-        • Les fonds seront crédités après confirmation sur la blockchain.<br>
-        • Assurez-vous d'utiliser le bon réseau pour éviter toute perte.
+        • Le système active votre plan automatiquement après confirmation blockchain.<br>
+        • Toute erreur de réseau peut entraîner une perte de fonds.
     </div>
 
     <script>
         function copyAddr() {
             var addr = document.getElementById('wallet-addr').innerText;
-            navigator.clipboard.writeText(addr).then(function() {
-                alert("✅ Adresse copiée !");
-            }, function() {
-                // Si clipboard la bloke nan kèk navigatè
-                const el = document.createElement('textarea');
-                el.value = addr;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                alert("✅ Adresse copiée !");
-            });
+            navigator.clipboard.writeText(addr).then(() => alert("✅ Adresse copiée !"));
+        }
+        function finishRecharge() {
+            localStorage.setItem('notif_status', 'pending');
+            window.location.href = "notifications.html";
         }
     </script>
-
 </body>
 </html>
