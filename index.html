@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -122,38 +123,37 @@
     <script>
         async function runMining() {
             let display = document.getElementById('user-balance-display');
-            
-            // Rekipere ID Telegram nan URL la
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('user_id');
 
-            // Balans pa defo nan memwa telefòn nan
+            // 1. Nou chaje balans ki nan memwa telefòn nan anvan pou l pa vid
             let solde = parseFloat(localStorage.getItem('user_balance')) || 0.000000;
+            display.innerText = solde.toFixed(6);
 
-            // Si nou gen ID a, nou al chèche balans reyèl la nan qeykominingbot
+            // 2. Si nou gen ID a, nou al chèche balans fre nan database la
             if (userId) {
                 try {
-                    let response = await fetch(`https://api.bots.business/v1/bots/qeykominingbot/commands/get_balance?user_id=${userId}`);
+                    // Nou rele API a atravè chemen web-app la pou evite erè sekirite
+                    let response = await fetch(`https://api.bots.business/v1/bots/qeykominingbot/web-app/get_balance?user_id=${userId}`);
                     let data = await response.json();
-                    if(data.balance !== undefined) {
+                    
+                    if (data.balance !== undefined) {
                         solde = parseFloat(data.balance);
                         localStorage.setItem('user_balance', solde);
+                        display.innerText = solde.toFixed(6);
                     }
                 } catch (e) {
-                    console.log("Koneksyon ak Bot la echwe, n ap sèvi ak memwa lokal.");
+                    console.log("Erreur de connexion avec l'API Qeyko");
                 }
             }
 
-            display.innerText = solde.toFixed(6);
-
-            // Lojik Mining vizyèl
+            // 3. Lojik Mining vizyèl si gen yon VIP aktif
             let activeVip = localStorage.getItem('active_vip');
             if (activeVip) {
                 const profits = {
                     'VIP 1': 1.00, 'VIP 2': 1.80, 'VIP 3': 3.00, 
                     'VIP 4': 4.00, 'VIP 5': 10.00, 'VIP 6': 15.00, 'VIP 7': 25.00
                 };
-                
                 let pwofiPaJou = profits[activeVip] || 0;
                 let pwofiPaSegonn = pwofiPaJou / 86400;
 
@@ -169,4 +169,3 @@
     </script>
 </body>
 </html>
-
