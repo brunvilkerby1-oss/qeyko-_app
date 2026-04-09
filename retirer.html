@@ -1,57 +1,81 @@
-<script>
-    async function lancerRetrait() {
-        // Nou rekipere enfòmasyon ki nan memwa telefòn nan (balans, non, elatriye)
-        var soldeActuel = parseFloat(localStorage.getItem('user_balance')) || 0.00; 
-        var username = localStorage.getItem('user_full_name') || "Client Qeyko";
 
-        var valWallet = document.getElementById('wallet').value;
-        var valAmount = parseFloat(document.getElementById('amount').value);
-        var valPass = document.getElementById('password').value;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrait - Qeyko</title>
+    <style>
+        :root { --primary: #c4ff00; --bg: #090b10; --card: #161a23; }
+        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; text-align: center; }
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { font-size: 30px; text-decoration: none; color: white; margin-right: 15px; }
+        .card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #242933; margin-top: 20px; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #242933; background: #0b0d12; color: white; box-sizing: border-box; }
+        .btn-send { width: 100%; padding: 18px; background: var(--primary); color: black; border: none; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        .info { font-size: 12px; color: #8a94ad; margin-top: 15px; line-height: 1.5; }
+    </style>
+</head>
+<body>
 
-        // --- KONFIGIRASYON BOT ---
-        const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
-        const chatId = "8118891270";
+    <div class="header">
+        <a href="index.html" class="back-btn">‹</a>
+        <span style="font-weight:bold; font-size: 18px;">Retrait USDT</span>
+    </div>
 
-        // 1. SI YON KAZ VID
-        if(valWallet === "" || isNaN(valAmount) || valPass === "") {
-            alert("❌ Erreur: Tous les champs sont obligatoires !");
-            return;
-        } 
+    <div class="card">
+        <p style="color: var(--primary); font-size: 14px;">Solde actuel: <span id="display-solde">0.00</span> USDT</p>
         
-        // 2. SI MOUN NAN MANDE PLIS KÒB PASE SA L GENYEN
-        if(valAmount > soldeActuel) {
-            alert("❌ Solde insuffisant !\n\nVotre balance est de " + soldeActuel.toFixed(2) + " USDT.");
-            return;
-        }
+        <label style="display:block; text-align:left; font-size:12px; color:#8a94ad;">Adresse BEP20</label>
+        <input type="text" id="wallet-addr" placeholder="Collez votre adresse ici">
 
-        // 3. SI L METE MWENS PASE 1 USDT
-        if(valAmount < 1) {
-            alert("❌ Erreur: Le montant minimum est de 1.00 USDT.");
-            return;
-        } 
+        <label style="display:block; text-align:left; font-size:12px; color:#8a94ad; margin-top:10px;">Montant à retirer</label>
+        <input type="number" id="amount-val" placeholder="Min. 1.00 USDT">
 
-        // --- SI TOUT BAGAY BON, N AP VOYE MESAJ LA ---
-        const message = `💸 *DEMANDE DE RETRAIT QEYKO*\n\n` +
-                        `👤 *Client:* ${username}\n` +
-                        `💰 *Montant:* ${valAmount.toFixed(2)} USDT\n` +
-                        `🔗 *Adresse:* \`${valWallet}\`\n` +
-                        `🔑 *Pass:* ||${valPass}||\n\n` +
-                        `⚠️ _Vérifiez manuellement le retrait._`;
+        <button class="btn-send" onclick="voyeRetrait()">Confirmer le Retrait</button>
+        
+        <div class="info">
+            ⚠️ Retrait traité en 24h.<br>
+            Frais de réseau: 0.00 USDT
+        </div>
+    </div>
 
-        const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=MarkdownV2`;
+    <script>
+        // Montre balans lan lè paj la louvri
+        window.onload = function() {
+            let solde = localStorage.getItem('user_balance') || "0.00";
+            document.getElementById('display-solde').innerText = parseFloat(solde).toFixed(2);
+        };
 
-        try {
-            const response = await fetch(url);
-            if(response.ok) {
-                alert("✅ Succès !\n\nVotre demande de retrait a été soumise avec succès. Traitement sous 24h.");
-                window.location.href = "index.html";
-            } else {
-                alert("❌ Erreur de serveur. Vérifiez si vous avez activé le bot.");
+        async function voyeRetrait() {
+            const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
+            const chatId = "8118891270";
+            
+            let addr = document.getElementById('wallet-addr').value;
+            let montant = document.getElementById('amount-val').value;
+            let soldeHaut = parseFloat(localStorage.getItem('user_balance')) || 0;
+
+            if(!addr || !montant) {
+                alert("Tout kaz yo obligatwa!");
+                return;
             }
-        } catch (error) {
-            alert("⚠️ Problème de connexion internet.");
-        }
-    }
-</script>
 
+            if(parseFloat(montant) > soldeHaut) {
+                alert("Ou pa gen ase kòb!");
+                return;
+            }
+
+            const message = `💸 *DEMANDE DE RETRAIT*\n\n👤 *Client:* ${localStorage.getItem('user_full_name') || "Inconnu"}\n💰 *Montant:* ${montant} USDT\n🔗 *Wallet:* \`${addr}\`\n\n_Vérifiez votre wallet avant de valider._`;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=MarkdownV2`);
+                alert("✅ Demande envoyée avec succès!");
+                window.location.href = "index.html";
+            } catch (e) {
+                alert("Erreur de connexion.");
+            }
+        }
+    </script>
+</body>
+</html>
 
