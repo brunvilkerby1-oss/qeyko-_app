@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,7 +24,6 @@
             min-height: 100vh;
         }
 
-        /* Carte du Solde */
         .balance-card { 
             background: var(--card-bg); 
             padding: 30px; 
@@ -33,10 +33,10 @@
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        /* Mwen ajoute ID isit la pou kòd la ka modifye l */
         .balance-val { font-size: 34px; font-weight: 800; color: var(--primary); margin: 8px 0; }
         .balance-label { color: var(--text-sec); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* Grille du Menu */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .menu-btn { 
@@ -67,8 +67,6 @@
         }
 
         .btn-label { font-size: 13px; font-weight: 600; }
-
-        /* Pied de page */
         .footer-note { text-align: center; color: var(--text-sec); font-size: 10px; margin-top: 40px; line-height: 1.6; }
         .highlight { color: var(--primary); font-weight: bold; }
     </style>
@@ -77,12 +75,11 @@
 
     <div class="balance-card">
         <div class="balance-label">Solde Total USDT</div>
-        <div class="balance-val">0.000000</div>
+        <div class="balance-val" id="user-balance-display">0.000000</div>
         <div style="font-size: 11px; color: var(--text-sec);">Réseau sécurisé : <span class="highlight">BEP20</span></div>
     </div>
 
     <div class="menu-grid">
-        
         <a href="recharger.html" class="menu-btn" style="border-color: rgba(196, 255, 0, 0.4);">
             <div class="icon-wrapper">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,13 +114,44 @@
             <div class="icon-wrapper" style="font-size: 24px;">⚙️</div>
             <span class="btn-label">Paramètres</span>
         </a>
-
     </div>
 
     <div class="footer-note">
         © 2026 <span class="highlight">QEYKO CRYPTO ASSETS GLOBAL</span><br>
         SÉCURISÉ PAR LA BINANCE SMART CHAIN (BSC)
     </div>
+
+    <script>
+        // Fonksyon pou montre kòb la an tan reyèl
+        function runMining() {
+            let solde = parseFloat(localStorage.getItem('user_balance')) || 0.00;
+            let activeVip = localStorage.getItem('active_vip');
+            let display = document.getElementById('user-balance-display');
+
+            // Si gen yon VIP, nou kalkile pwofi pa segonn
+            if (activeVip) {
+                const profits = {
+                    'VIP 1': 1.00, 'VIP 2': 1.80, 'VIP 3': 3.00, 
+                    'VIP 4': 4.00, 'VIP 5': 10.00, 'VIP 6': 15.00, 'VIP 7': 25.00
+                };
+                
+                let pwofiPaJou = profits[activeVip] || 0;
+                let pwofiPaSegonn = pwofiPaJou / 86400;
+
+                // Ogmante balans lan chak segonn
+                setInterval(() => {
+                    solde += pwofiPaSegonn;
+                    localStorage.setItem('user_balance', solde.toFixed(8));
+                    display.innerText = solde.toFixed(6);
+                }, 1000);
+            } else {
+                // Si pa gen VIP, jis montre solde a fiks
+                display.innerText = solde.toFixed(6);
+            }
+        }
+
+        window.onload = runMining;
+    </script>
 
 </body>
 </html>
