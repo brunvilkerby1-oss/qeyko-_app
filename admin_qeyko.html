@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Qeyko</title>
+    <style>
+        body { background: #090b10; color: white; font-family: sans-serif; text-align: center; padding: 40px 20px; margin: 0; }
+        .admin-card { background: #1a1d26; padding: 30px; border-radius: 20px; border: 1px solid #c4ff00; max-width: 400px; margin: auto; box-shadow: 0 0 20px rgba(196, 255, 0, 0.1); }
+        h2 { color: #c4ff00; margin-bottom: 20px; }
+        label { display: block; text-align: left; font-size: 12px; color: #8a94ad; margin-top: 15px; }
+        input { width: 100%; padding: 15px; margin: 5px 0; border-radius: 12px; border: 1px solid #242933; background: #090b10; color: white; box-sizing: border-box; font-size: 16px; outline: none; }
+        input:focus { border-color: #c4ff00; }
+        button { width: 100%; padding: 18px; background: #c4ff00; color: black; border: none; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+        button:active { transform: scale(0.98); }
+        .back { display: block; margin-top: 20px; color: #8a94ad; text-decoration: none; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-card">
+        <h2>Qeyko Admin</h2>
+        <p style="font-size: 13px; color: #8a94ad; margin-bottom: 25px;">Système de crédit manuel pour les dépôts validés.</p>
+        
+        <label>Code de Sécurité (PIN)</label>
+        <input type="password" id="admin-pin" placeholder="Entrez le code secret">
+
+        <label>Montant à créditer (USDT)</label>
+        <input type="number" id="montant-depot" placeholder="Ex: 50.00">
+
+        <button onclick="ajouterArgent()">Valider le dépôt</button>
+        
+        <a href="index.html" class="back">Retour au Dashboard</a>
+    </div>
+
+    <script>
+        function ajouterArgent() {
+            var pinEntré = document.getElementById('admin-pin').value;
+            var montant = parseFloat(document.getElementById('montant-depot').value);
+            
+            // MODPAS OU SE: 4115 (Ou ka chanje l isit la)
+            var pinSekre = "4115";
+
+            // 1. Tcheke si PIN nan bon
+            if (pinEntré !== pinSekre) {
+                alert("❌ Accès Refusé: Code de sécurité incorrect !");
+                return;
+            }
+
+            // 2. Tcheke si montan an valid
+            if (isNaN(montant) || montant <= 0) {
+                alert("❌ Erreur: Veuillez entrer un montant valide.");
+                return;
+            }
+
+            // 3. Rekipere balans ki nan memwa telefòn nan
+            let ansyenSolde = parseFloat(localStorage.getItem('user_balance')) || 0;
+            
+            // 4. Kalkile nouvo balans lan
+            let nouvoSolde = ansyenSolde + montant;
+            
+            // 5. Sove l
+            localStorage.setItem('user_balance', nouvoSolde.toFixed(6));
+
+            alert("✅ SUCCÈS !\n\n" + montant + " USDT ont été ajoutés au compte.\nNouveau solde: " + nouvoSolde.toFixed(2) + " USDT");
+            
+            // Voye l sou index la pou l wè chanjman an
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
