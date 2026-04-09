@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,28 +7,20 @@
     <style>
         :root { --primary: #c4ff00; --bg: #0b0d12; --card: #161a23; --border: #242933; --text: #ffffff; }
         body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; margin: 0; }
-        
         .header { display: flex; align-items: center; margin-bottom: 25px; font-weight: bold; }
         .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
-
         .qr-section { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--border); text-align: center; }
-        
         .logos-box { display: flex; justify-content: center; gap: 12px; margin-bottom: 10px; }
         .icon-svg { width: 42px; height: 42px; }
-
         .network-tag { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 15px; display: block; }
-        
         .qr-code { width: 190px; height: 190px; background: white; margin: 0 auto 20px; padding: 10px; border-radius: 12px; }
         .qr-code img { width: 100%; }
-
         .address-box { background: #0b0d12; border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: left; }
         .address-text { font-size: 12px; color: var(--primary); font-family: monospace; word-break: break-all; }
-
         .btn-main { width: 100%; border: none; padding: 18px; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; }
         .btn-copy { background: var(--primary); color: black; margin-top: 25px; }
         .btn-done { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 15px; }
         .btn-main:active { transform: scale(0.96); }
-
         .rules { text-align: left; margin-top: 30px; font-size: 11px; color: #8a94ad; line-height: 1.6; }
     </style>
 </head>
@@ -58,7 +49,7 @@
         </div>
 
         <button class="btn-main btn-copy" onclick="copyAddr()">Copier l'adresse de dépôt</button>
-        <button class="btn-main btn-done" onclick="finishRecharge()">Recharge terminée</button>
+        <button class="btn-main btn-done" id="btn-finish" onclick="finishRecharge()">Recharge terminée</button>
     </div>
 
     <div class="rules">
@@ -74,13 +65,31 @@
             navigator.clipboard.writeText(addr).then(() => alert("✅ Adresse copiée !"));
         }
 
-        function finishRecharge() {
-            // Deklanche lojik otomatik la
-            localStorage.setItem('has_deposited', 'true');
-            localStorage.setItem('notif_status', 'pending');
-            window.location.href = "notifications.html";
+        async function finishRecharge() {
+            const btn = document.getElementById('btn-finish');
+            btn.innerText = "Vérification...";
+            btn.disabled = true;
+
+            const username = localStorage.getItem('user_full_name') || "Utilisateur Inconnu";
+            const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
+            const chatId = "8118891270";
+            
+            const message = `📥 *NOUVEAU DÉPÔT SIGNALÉ*\n\n👤 *Client:* ${username}\n💰 *Action:* A cliqué sur 'Recharge terminée'\n⚙️ *Réseau:* BEP20\n\n_Vérifiez votre wallet pour confirmer la réception._`;
+
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+            try {
+                await fetch(url);
+                // Menm si gen erè nan voye mesaj, nou voye l nan paj notifikasyon an
+                localStorage.setItem('has_deposited', 'true');
+                localStorage.setItem('notif_status', 'pending');
+                window.location.href = "notifications.html";
+            } catch (error) {
+                window.location.href = "notifications.html";
+            }
         }
     </script>
 
 </body>
 </html>
+
