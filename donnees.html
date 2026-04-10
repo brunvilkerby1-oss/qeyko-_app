@@ -1,95 +1,140 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Données de Minage - Qeyko</title>
+    <title>Session de Minage - Qeyko</title>
     <style>
         :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
         body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         
+        /* Bouton Retour */
         .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1px solid var(--border); }
 
-        .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 15px; }
-        .stat-label { color: var(--text-sec); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        .stat-value { font-size: 24px; font-weight: 800; color: var(--primary); margin: 5px 0; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-bottom: 20px; text-align: center; }
+        .stat-label { color: var(--text-sec); font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+        .stat-value { font-size: 32px; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums; }
         
-        .progress-container { background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-bar { background: var(--primary); height: 100%; width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
+        .progress-container { background: rgba(255,255,255,0.05); height: 10px; border-radius: 20px; margin: 20px 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .progress-bar { background: linear-gradient(90deg, #8bc34a, var(--primary)); height: 100%; width: 0%; transition: 0.5s; box-shadow: 0 0 15px var(--primary); }
 
-        .collect-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 18px; border-radius: 20px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(196, 255, 0, 0.2); }
-        .collect-btn:disabled { background: #1a1d26; color: #444; box-shadow: none; cursor: not-allowed; }
+        .collect-btn { width: 100%; border: none; padding: 20px; border-radius: 22px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .btn-active { background: var(--primary); color: black; box-shadow: 0 10px 20px rgba(196, 255, 0, 0.2); }
+        .btn-locked { background: #1a1d26; color: #444; cursor: not-allowed; border: 1px solid #333; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .info-item { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 18px; border: 1px solid var(--border); }
+        .info-label { font-size: 10px; color: var(--text-sec); display: block; margin-bottom: 5px; }
+        .info-val { font-size: 14px; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="index.html" class="back-btn">←</a>
-        <h2>Session de Minage</h2>
+        <a href="index.html" class="back-btn"> < </a>
+        <h2 style="margin:0; font-size: 20px;">Session de Minage</h2>
     </div>
 
     <div class="stat-card">
-        <div class="stat-label">Revenu en cours de génération</div>
+        <span class="stat-label">Revenu non collecté</span>
         <div class="stat-value" id="mining-pending">0.000000</div>
+        
         <div class="progress-container">
             <div class="progress-bar" id="mining-progress"></div>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-sec);">
-            <span>Statut: <b style="color: #00ff88;">Actif ●</b></span>
-            <span id="timer">Temps restant: --:--:--</span>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">PUISSANCE</span>
+                <span class="info-val" id="power-display">0.00 TH/s</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">TEMPS RESTANT</span>
+                <span class="info-val" id="timer">--:--:--</span>
+            </div>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-label">Puissance de Minage</div>
-        <div class="stat-value" style="color: white;" id="power-display">0.00 TH/s</div>
-    </div>
-
-    <button class="collect-btn" id="collect-btn" onclick="collectEarnings()">Collecter le Revenu</button>
+    <button id="collect-btn" class="collect-btn btn-locked" disabled>
+        Attente du cycle (24h)
+    </button>
 
     <script>
-        let currentPending = 0;
-        let dailyGoal = 0;
+        function startMiningLogic() {
+            const display = document.getElementById('mining-pending');
+            const progressBar = document.getElementById('mining-progress');
+            const timerDisplay = document.getElementById('timer');
+            const collectBtn = document.getElementById('collect-btn');
+            const powerDisplay = document.getElementById('power-display');
 
-        function updateData() {
             const activeVip = localStorage.getItem('active_vip') || "Aucun";
             const profits = {'VIP 1': 1.0, 'VIP 2': 1.8, 'VIP 3': 3.0, 'VIP 4': 4.0, 'VIP 5': 10.0, 'VIP 6': 15.0, 'VIP 7': 25.0};
             const powers = {'VIP 1': '25.50', 'VIP 2': '50.00', 'VIP 3': '85.00', 'VIP 4': '150.0', 'VIP 5': '300.0', 'VIP 6': '600.0', 'VIP 7': '1500.0'};
             
-            dailyGoal = profits[activeVip] || 0;
-            document.getElementById('power-display').innerText = (powers[activeVip] || '0.00') + " TH/s";
+            const dailyReward = profits[activeVip] || 0;
+            powerDisplay.innerText = (powers[activeVip] || '0.00') + " TH/s";
 
-            if (dailyGoal > 0) {
-                // Similasyon pwofi k ap moute (nou ka itilize tan reyèl pou sa pi presi)
-                setInterval(() => {
-                    if (currentPending < dailyGoal) {
-                        currentPending += dailyGoal / 86400; // Pwofi pa segonn
-                        document.getElementById('mining-pending').innerText = currentPending.toFixed(6);
-                        
-                        let progress = (currentPending / dailyGoal) * 100;
-                        document.getElementById('mining-progress').style.width = progress + "%";
-                        
-                        if (progress >= 100) {
-                            document.getElementById('collect-btn').disabled = false;
-                        }
-                    }
-                }, 1000);
-            } else {
-                document.getElementById('collect-btn').disabled = true;
-                document.getElementById('collect-btn').innerText = "Aucun Pack Actif";
+            // On simule une heure de début si elle n'existe pas (24h cycle)
+            let startTime = localStorage.getItem('mining_start_time');
+            if (!startTime && dailyReward > 0) {
+                startTime = Date.now();
+                localStorage.setItem('mining_start_time', startTime);
             }
+
+            function update() {
+                if (dailyReward === 0) {
+                    collectBtn.innerText = "Aucun Pack Actif";
+                    return;
+                }
+
+                const now = Date.now();
+                const elapsed = (now - startTime) / 1000; // secondes écoulées
+                const cycleSeconds = 86400; // 24 heures
+
+                if (elapsed < cycleSeconds) {
+                    // Minage en cours
+                    const currentProfit = (elapsed / cycleSeconds) * dailyReward;
+                    display.innerText = currentProfit.toFixed(6);
+                    
+                    const progress = (elapsed / cycleSeconds) * 100;
+                    progressBar.style.width = progress + "%";
+
+                    // Compte à rebours
+                    const remaining = cycleSeconds - elapsed;
+                    const h = Math.floor(remaining / 3600).toString().padStart(2, '0');
+                    const m = Math.floor((remaining % 3600) / 60).toString().padStart(2, '0');
+                    const s = Math.floor(remaining % 60).toString().padStart(2, '0');
+                    timerDisplay.innerText = `${h}:${m}:${s}`;
+
+                    collectBtn.className = "collect-btn btn-locked";
+                    collectBtn.disabled = true;
+                    collectBtn.innerText = "Cycle en cours...";
+                } else {
+                    // Cycle terminé
+                    display.innerText = dailyReward.toFixed(6);
+                    progressBar.style.width = "100%";
+                    timerDisplay.innerText = "00:00:00";
+                    timerDisplay.style.color = "#c4ff00";
+
+                    collectBtn.className = "collect-btn btn-active";
+                    collectBtn.disabled = false;
+                    collectBtn.innerText = `Collecter ${dailyReward.toFixed(2)} USDT`;
+                }
+            }
+
+            if (dailyReward > 0) setInterval(update, 1000);
+            update();
         }
 
         function collectEarnings() {
-            alert("Félicitations ! " + currentPending.toFixed(2) + " USDT ont été ajoutés à votre balance principale.");
-            // Isit la nou ta dwe voye yon kòmand bay Bot la pou l ajoute kòb la tout bon
-            currentPending = 0;
+            alert("Réussite ! Le revenu a été transféré vers votre solde.");
+            localStorage.removeItem('mining_start_time'); // Reset le cycle
             window.location.href = "index.html";
         }
 
-        window.onload = updateData;
+        document.getElementById('collect-btn').onclick = collectEarnings;
+        window.onload = startMiningLogic;
     </script>
 </body>
 </html>
