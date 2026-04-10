@@ -1,95 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recharger USDT - Qeyko</title>
+    <title>Recharge USDT - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #0b0d12; --card: #161a23; --border: #242933; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; margin: 0; }
-        .header { display: flex; align-items: center; margin-bottom: 25px; font-weight: bold; }
-        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; }
-        .qr-section { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--border); text-align: center; }
-        .logos-box { display: flex; justify-content: center; gap: 12px; margin-bottom: 10px; }
-        .icon-svg { width: 42px; height: 42px; }
-        .network-tag { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 15px; display: block; }
-        .qr-code { width: 190px; height: 190px; background: white; margin: 0 auto 20px; padding: 10px; border-radius: 12px; }
-        .qr-code img { width: 100%; }
-        .address-box { background: #0b0d12; border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: left; }
-        .address-text { font-size: 12px; color: var(--primary); font-family: monospace; word-break: break-all; }
-        .btn-main { width: 100%; border: none; padding: 18px; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; }
-        .btn-copy { background: var(--primary); color: black; margin-top: 25px; }
-        .btn-done { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 15px; }
-        .btn-main:active { transform: scale(0.96); }
-        .rules { text-align: left; margin-top: 30px; font-size: 11px; color: #8a94ad; line-height: 1.6; }
+        :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
+        body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1px solid var(--border); }
+
+        .address-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .qr-placeholder { background: white; width: 150px; height: 150px; margin: 15px auto; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; }
+        
+        .wallet-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; font-family: monospace; font-size: 13px; color: var(--primary); word-break: break-all; margin: 10px 0; border: 1px dashed var(--border); }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 11px; color: var(--text-sec); margin-bottom: 5px; text-transform: uppercase; }
+        input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 15px; border-radius: 15px; color: white; box-sizing: border-box; outline: none; }
+
+        .finish-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 18px; border-radius: 20px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 20px; text-transform: uppercase; box-shadow: 0 10px 20px rgba(196, 255, 0, 0.2); }
+        .finish-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="index.html" class="back-btn">‹</a>
-        <span>Recharger USDT</span>
+        <a href="index.html" class="back-btn"> < </a>
+        <h2 style="margin:0; font-size: 20px;">Dépôt USDT</h2>
     </div>
 
-    <div class="qr-section">
-        <div class="logos-box">
-            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#26A17B"/><path d="M12.72 8.36h3.09V6.18H8.18v2.18h3.09v5.46h1.45V8.36zM15.82 10.55H8.18v1.09c0 1.45 1.71 2.6 3.82 2.6s3.82-1.15 3.82-2.6v-1.09z" fill="white"/></svg>
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L4.5 5.5v13L12 22l7.5-3.5v-13L12 2z" fill="#c4ff00"/><path d="M12 18l-4-2v-4l4 2 4-2v4l-4 2z" fill="#0b0d12"/></svg>
-        </div>
-
-        <span class="network-tag">Réseau : BEP20 (BSC)</span>
-        
-        <div class="qr-code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396" alt="QR Code">
-        </div>
-
-        <div style="font-size: 11px; color: #8a94ad; text-align: left; margin-bottom: 5px;">Adresse du dépôt</div>
-        <div class="address-box">
-            <div class="address-text" id="wallet-addr">0x7fD50dAAfeA0a8Df3E4860ECC81939fFBaa11396</div>
-        </div>
-
-        <button class="btn-main btn-copy" onclick="copyAddr()">Copier l'adresse de dépôt</button>
-        <button class="btn-main btn-done" id="btn-finish" onclick="finishRecharge()">Recharge terminée</button>
+    <div class="address-card">
+        <div class="stat-label" style="font-size: 11px; color: var(--text-sec);">ADRESSE DE RECHARGE (BEP20)</div>
+        <div class="wallet-box" id="wallet">0x9791D68C72B9197B0D36D619A0A89D3C6E5186E9</div>
+        <button onclick="copyWallet()" style="background: none; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 8px; font-size: 11px; cursor: pointer;">Copier l'adresse</button>
     </div>
 
-    <div class="rules">
-        <strong style="color: #ff4d4d;">⚠️ Rappel chaleureux :</strong><br>
-        • Envoyez uniquement des <b>USDT</b> via le réseau <b>BEP20</b>.<br>
-        • Les fonds seront crédités après confirmation sur la blockchain.<br>
-        • Assurez-vous d'utiliser le bon réseau pour éviter toute perte.
+    <div class="input-group">
+        <label>Montant envoyé (USDT)</label>
+        <input type="number" id="amount" placeholder="Ex: 50">
+    </div>
+
+    <div class="input-group">
+        <label>ID de Transaction (Hash) ou Nom d'utilisateur</label>
+        <input type="text" id="txid" placeholder="ID de la transaction">
+    </div>
+
+    <button class="finish-btn" onclick="submitDeposit()">J'ai déjà envoyé (Terminé)</button>
+
+    <div style="text-align: center; font-size: 11px; color: var(--text-sec); margin-top: 15px;">
+        ⚠️ Assurez-vous d'utiliser le réseau <b>BEP20</b> uniquement.
     </div>
 
     <script>
-        function copyAddr() {
-            var addr = document.getElementById('wallet-addr').innerText;
-            navigator.clipboard.writeText(addr).then(() => alert("✅ Adresse copiée !"));
+        function copyWallet() {
+            const el = document.createElement('textarea');
+            el.value = document.getElementById('wallet').innerText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert("Adresse copiée !");
         }
 
-        async function finishRecharge() {
-            const btn = document.getElementById('btn-finish');
-            btn.innerText = "Vérification...";
-            btn.disabled = true;
+        function submitDeposit() {
+            const amount = document.getElementById('amount').value;
+            const txid = document.getElementById('txid').value;
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('user_id') || "Inconnu";
 
-            const username = localStorage.getItem('user_full_name') || "Utilisateur Inconnu";
-            const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
-            const chatId = "8118891270";
-            
-            const message = `📥 *NOUVEAU DÉPÔT SIGNALÉ*\n\n👤 *Client:* ${username}\n💰 *Action:* A cliqué sur 'Recharge terminée'\n⚙️ *Réseau:* BEP20\n\n_Vérifiez votre wallet pour confirmer la réception._`;
-
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-            try {
-                await fetch(url);
-                // Menm si gen erè nan voye mesaj, nou voye l nan paj notifikasyon an
-                localStorage.setItem('has_deposited', 'true');
-                localStorage.setItem('notif_status', 'pending');
-                window.location.href = "notifications.html";
-            } catch (error) {
-                window.location.href = "notifications.html";
+            if (!amount || !txid) {
+                alert("Veuillez remplir tous les champs.");
+                return;
             }
+
+            // Isit la nou prepare mesaj la pou voye nan Bot la
+            const message = `🔔 *NOUVEAU DÉPÔT A VALIDER*\n\n` +
+                          `👤 ID Utilisateur: ${userId}\n` +
+                          `💰 Montant: ${amount} USDT\n` +
+                          `📄 Preuve/TXID: ${txid}\n\n` +
+                          `Cliquez sur le bouton ci-dessous pour valider.`;
+
+            // Nou voye yon alert pou konfime epi retounen nan akèy la
+            alert("Demande de recharge envoyée à l'administration !\nLe solde sera crédité après vérification.");
+            
+            // Redireksyon
+            window.location.href = "index.html";
         }
     </script>
-
 </body>
 </html>
 
