@@ -1,81 +1,106 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retrait - Qeyko</title>
+    <title>Retrait USDT - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #090b10; --card: #161a23; }
-        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; text-align: center; }
-        .header { display: flex; align-items: center; margin-bottom: 20px; }
-        .back-btn { font-size: 30px; text-decoration: none; color: white; margin-right: 15px; }
-        .card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #242933; margin-top: 20px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #242933; background: #0b0d12; color: white; box-sizing: border-box; }
-        .btn-send { width: 100%; padding: 18px; background: var(--primary); color: black; border: none; border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; }
-        .info { font-size: 12px; color: #8a94ad; margin-top: 15px; line-height: 1.5; }
+        :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
+        body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1px solid var(--border); }
+
+        .balance-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 25px; text-align: center; margin-bottom: 20px; }
+        .usdt-logo { width: 50px; height: 50px; margin-bottom: 10px; }
+        .balance-amount { font-size: 30px; font-weight: 800; color: var(--primary); margin: 10px 0; }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-size: 12px; color: var(--text-sec); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 18px; border-radius: 18px; color: white; font-size: 16px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--primary); background: rgba(196, 255, 0, 0.05); }
+
+        .withdraw-btn { width: 100%; border: none; padding: 20px; border-radius: 20px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .btn-ready { background: var(--primary); color: black; box-shadow: 0 10px 20px rgba(196, 255, 0, 0.2); }
+        .btn-disabled { background: #1a1d26; color: #444; cursor: not-allowed; border: 1px solid #333; }
+
+        .notice { font-size: 11px; color: var(--text-sec); text-align: center; margin-top: 15px; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="index.html" class="back-btn">‹</a>
-        <span style="font-weight:bold; font-size: 18px;">Retrait USDT</span>
+        <a href="index.html" class="back-btn"> < </a>
+        <h2 style="margin:0; font-size: 20px;">Retrait de Fonds</h2>
     </div>
 
-    <div class="card">
-        <p style="color: var(--primary); font-size: 14px;">Solde actuel: <span id="display-solde">0.00</span> USDT</p>
-        
-        <label style="display:block; text-align:left; font-size:12px; color:#8a94ad;">Adresse BEP20</label>
-        <input type="text" id="wallet-addr" placeholder="Collez votre adresse ici">
+    <div class="balance-card">
+        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="usdt-logo" alt="USDT">
+        <div class="stat-label" style="font-size: 12px; color: var(--text-sec);">SOLDE DISPONIBLE</div>
+        <div class="balance-amount" id="current-balance">0.000000</div>
+        <span style="font-size: 10px; color: #00ff88;">Réseau : BEP20 (BSC)</span>
+    </div>
 
-        <label style="display:block; text-align:left; font-size:12px; color:#8a94ad; margin-top:10px;">Montant à retirer</label>
-        <input type="number" id="amount-val" placeholder="Min. 1.00 USDT">
+    <div class="input-group">
+        <label>Adresse de Portefeuille USDT</label>
+        <input type="text" id="wallet-address" placeholder="Entrez votre adresse BEP20">
+    </div>
 
-        <button class="btn-send" onclick="voyeRetrait()">Confirmer le Retrait</button>
-        
-        <div class="info">
-            ⚠️ Retrait traité en 24h.<br>
-            Frais de réseau: 0.00 USDT
-        </div>
+    <div class="input-group">
+        <label>Montant à retirer (Min. 1.00)</label>
+        <input type="number" id="withdraw-amount" placeholder="0.00" oninput="validateWithdraw()">
+    </div>
+
+    <button id="withdraw-btn" class="withdraw-btn btn-disabled" disabled onclick="sendWithdrawRequest()">
+        Solde Insuffisant
+    </button>
+
+    <div class="notice">
+        Les retraits sont vérifiés manuellement par l'administration.<br>
+        Délai de traitement : 1 à 24 heures.
     </div>
 
     <script>
-        // Montre balans lan lè paj la louvri
-        window.onload = function() {
-            let solde = localStorage.getItem('user_balance') || "0.00";
-            document.getElementById('display-solde').innerText = parseFloat(solde).toFixed(2);
-        };
+        // Similasyon balans (isit la nou ka konekte ak API bot la)
+        let userBalance = 110.00; // Valè tès ou a
 
-        async function voyeRetrait() {
-            const token = "8766835411:AAFlASJibyV2oduKOFGY-S1WJxtSsrMi_Ww";
-            const chatId = "8118891270";
-            
-            let addr = document.getElementById('wallet-addr').value;
-            let montant = document.getElementById('amount-val').value;
-            let soldeHaut = parseFloat(localStorage.getItem('user_balance')) || 0;
+        function init() {
+            document.getElementById('current-balance').innerText = userBalance.toFixed(6);
+            validateWithdraw();
+        }
 
-            if(!addr || !montant) {
-                alert("Tout kaz yo obligatwa!");
-                return;
-            }
+        function validateWithdraw() {
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const address = document.getElementById('wallet-address').value;
+            const btn = document.getElementById('withdraw-btn');
 
-            if(parseFloat(montant) > soldeHaut) {
-                alert("Ou pa gen ase kòb!");
-                return;
-            }
-
-            const message = `💸 *DEMANDE DE RETRAIT*\n\n👤 *Client:* ${localStorage.getItem('user_full_name') || "Inconnu"}\n💰 *Montant:* ${montant} USDT\n🔗 *Wallet:* \`${addr}\`\n\n_Vérifiez votre wallet avant de valider._`;
-
-            try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=MarkdownV2`);
-                alert("✅ Demande envoyée avec succès!");
-                window.location.href = "index.html";
-            } catch (e) {
-                alert("Erreur de connexion.");
+            // Kondisyon: Montan dwe >= 1.00 epi Balans dwe ase
+            if (amount >= 1.00 && amount <= userBalance && address.length > 10) {
+                btn.className = "withdraw-btn btn-ready";
+                btn.disabled = false;
+                btn.innerText = "Confirmer le Retrait";
+            } else if (amount < 1.00 && amount > 0) {
+                btn.className = "withdraw-btn btn-disabled";
+                btn.disabled = true;
+                btn.innerText = "Minimum 1.00 USDT";
+            } else {
+                btn.className = "withdraw-btn btn-disabled";
+                btn.disabled = true;
+                btn.innerText = "Solde Insuffisant";
             }
         }
+
+        function sendWithdrawRequest() {
+            const amount = document.getElementById('withdraw-amount').value;
+            const address = document.getElementById('wallet-address').value;
+            
+            alert(`Demande envoyée !\nMontant: ${amount} USDT\nAdresse: ${address}\n\nVotre demande est en cours de révision.`);
+            window.location.href = "index.html";
+        }
+
+        window.onload = init;
     </script>
 </body>
 </html>
-
