@@ -4,131 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minage Qeyko - 24h</title>
+    <title>Données de Minage - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg: #0f1117; --card: #161a23; --border: #242933; }
-        body { background: var(--bg); color: white; font-family: sans-serif; padding: 20px; margin: 0; }
+        :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
+        body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         
-        .header { display: flex; align-items: center; margin-bottom: 25px; font-weight: bold; }
-        .back-btn { font-size: 24px; text-decoration: none; color: white; margin-right: 15px; cursor: pointer; }
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
 
-        .mining-card { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid var(--border); text-align: center; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 15px; }
+        .stat-label { color: var(--text-sec); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { font-size: 24px; font-weight: 800; color: var(--primary); margin: 5px 0; }
         
-        /* Bar de progresyon */
-        .progress-container { width: 100%; height: 6px; background: #1f242d; border-radius: 10px; margin: 15px 0; }
-        .progress-bar { height: 100%; background: var(--primary); width: 0%; border-radius: 10px; transition: 0.3s; }
+        .progress-container { background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-bar { background: var(--primary); height: 100%; width: 0%; transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
 
-        .label { color: #8a94ad; font-size: 14px; }
-        .balance-value { font-size: 32px; font-weight: bold; color: var(--primary); margin: 10px 0; }
-        .timer { font-family: monospace; color: #ffaa00; font-size: 18px; font-weight: bold; }
-
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .stat-box { background: var(--card); padding: 15px; border-radius: 15px; border: 1px solid var(--border); }
-        .stat-label { font-size: 11px; color: #8a94ad; text-transform: uppercase; margin-bottom: 5px; }
-        .stat-number { font-size: 15px; font-weight: bold; }
-
-        .collect-btn { 
-            width: 100%; padding: 18px; background: var(--primary); color: black; 
-            border: none; border-radius: 50px; font-weight: bold; font-size: 16px; cursor: pointer;
-        }
-        .collect-btn:disabled { background: #242933; color: #5c667a; cursor: not-allowed; }
+        .collect-btn { width: 100%; background: var(--primary); color: black; border: none; padding: 18px; border-radius: 20px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 15px rgba(196, 255, 0, 0.2); }
+        .collect-btn:disabled { background: #1a1d26; color: #444; box-shadow: none; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="back-btn" onclick="window.location.href='index.html'">‹</div>
-        <span>Session de Minage (24h)</span>
+        <a href="index.html" class="back-btn">←</a>
+        <h2>Session de Minage</h2>
     </div>
 
-    <div class="mining-card">
-        <div class="label">Revenu en cours de génération</div>
-        <div class="balance-value" id="live-balance">0.000000</div>
-        
+    <div class="stat-card">
+        <div class="stat-label">Revenu en cours de génération</div>
+        <div class="stat-value" id="mining-pending">0.000000</div>
         <div class="progress-container">
-            <div class="progress-bar" id="p-bar"></div>
+            <div class="progress-bar" id="mining-progress"></div>
         </div>
-        
-        <div class="label">Temps restant : <span class="timer" id="countdown">24:00:00</span></div>
-    </div>
-
-    <div class="stats-grid">
-        <div class="stat-box">
-            <div class="stat-label">Puissance</div>
-            <div class="stat-number">25.50 TH/s</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-label">Statut</div>
-            <div class="stat-number" style="color: #00ff88;">Actif ●</div>
+        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-sec);">
+            <span>Statut: <b style="color: #00ff88;">Actif ●</b></span>
+            <span id="timer">Temps restant: --:--:--</span>
         </div>
     </div>
 
-    <button class="collect-btn" id="btn-collect" onclick="collectToWallet()" disabled>
-        Collecter le Revenu (1.00 USDT)
-    </button>
+    <div class="stat-card">
+        <div class="stat-label">Puissance de Minage</div>
+        <div class="stat-value" style="color: white;" id="power-display">0.00 TH/s</div>
+    </div>
+
+    <button class="collect-btn" id="collect-btn" onclick="collectEarnings()">Collecter le Revenu</button>
 
     <script>
-        const DURATION = 24 * 60 * 60; // 24 èdtan an segonn
-        const TARGET_GAIN = 1.00; // 1 USDT pa jou
-        
-        let startTime = localStorage.getItem('mining_start_time');
-        const collectBtn = document.getElementById('btn-collect');
+        let currentPending = 0;
+        let dailyGoal = 0;
 
-        // Si se premye fwa, nou kòmanse revèy la
-        if (!startTime) {
-            startTime = Date.now();
-            localStorage.setItem('mining_start_time', startTime);
-        }
-
-        function updateMining() {
-            const now = Date.now();
-            const elapsed = Math.floor((now - startTime) / 1000); // Segonn ki pase
-            const remaining = DURATION - elapsed;
-
-            if (remaining <= 0) {
-                // 24 èdtan fini!
-                document.getElementById('live-balance').innerText = "1.000000";
-                document.getElementById('countdown').innerText = "00:00:00";
-                document.getElementById('p-bar').style.width = "100%";
-                collectBtn.disabled = false; // Bouton kolekte a vin aktive
-                return;
-            }
-
-            // Kalkil kòb k ap moute a
-            const currentGain = (elapsed / DURATION) * TARGET_GAIN;
-            document.getElementById('live-balance').innerText = currentGain.toFixed(6);
-
-            // Bar progresyon
-            const percent = (elapsed / DURATION) * 100;
-            document.getElementById('p-bar').style.width = percent + "%";
-
-            // Revèy k ap desann
-            const hrs = Math.floor(remaining / 3600);
-            const mins = Math.floor((remaining % 3600) / 60);
-            const secs = remaining % 60;
-            document.getElementById('countdown').innerText = 
-                `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function collectToWallet() {
-            // Nou voye kòb la nan bous retrè a
-            let mainBalance = parseFloat(localStorage.getItem('main_wallet_balance')) || 0;
-            mainBalance += TARGET_GAIN;
-            localStorage.setItem('main_wallet_balance', mainBalance);
+        function updateData() {
+            const activeVip = localStorage.getItem('active_vip') || "Aucun";
+            const profits = {'VIP 1': 1.0, 'VIP 2': 1.8, 'VIP 3': 3.0, 'VIP 4': 4.0, 'VIP 5': 10.0, 'VIP 6': 15.0, 'VIP 7': 25.0};
+            const powers = {'VIP 1': '25.50', 'VIP 2': '50.00', 'VIP 3': '85.00', 'VIP 4': '150.0', 'VIP 5': '300.0', 'VIP 6': '600.0', 'VIP 7': '1500.0'};
             
-            // Nou reset tout bagay pou yon lòt 24h
-            localStorage.removeItem('mining_start_time');
-            alert("✅ 1.00 USDT ajouté à votre solde de retrait !");
-            window.location.reload();
+            dailyGoal = profits[activeVip] || 0;
+            document.getElementById('power-display').innerText = (powers[activeVip] || '0.00') + " TH/s";
+
+            if (dailyGoal > 0) {
+                // Similasyon pwofi k ap moute (nou ka itilize tan reyèl pou sa pi presi)
+                setInterval(() => {
+                    if (currentPending < dailyGoal) {
+                        currentPending += dailyGoal / 86400; // Pwofi pa segonn
+                        document.getElementById('mining-pending').innerText = currentPending.toFixed(6);
+                        
+                        let progress = (currentPending / dailyGoal) * 100;
+                        document.getElementById('mining-progress').style.width = progress + "%";
+                        
+                        if (progress >= 100) {
+                            document.getElementById('collect-btn').disabled = false;
+                        }
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('collect-btn').disabled = true;
+                document.getElementById('collect-btn').innerText = "Aucun Pack Actif";
+            }
         }
 
-        // Mizajou chak segonn
-        setInterval(updateMining, 1000);
-        updateMining();
+        function collectEarnings() {
+            alert("Félicitations ! " + currentPending.toFixed(2) + " USDT ont été ajoutés à votre balance principale.");
+            // Isit la nou ta dwe voye yon kòmand bay Bot la pou l ajoute kòb la tout bon
+            currentPending = 0;
+            window.location.href = "index.html";
+        }
+
+        window.onload = updateData;
     </script>
 </body>
 </html>
-
 
 
 
