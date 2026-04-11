@@ -3,29 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packs VIP - Qeyko Mining</title>
+    <title>VIP - Qeyko</title>
     <style>
-        :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
-        body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; min-height: 100vh; }
-        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
-        .back-btn { text-decoration: none; color: var(--primary); font-size: 24px; background: rgba(196, 255, 0, 0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-        .vip-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .vip-info h3 { margin: 0; color: var(--primary); font-size: 20px; }
-        .vip-info p { margin: 8px 0 0; font-size: 13px; color: var(--text-sec); }
-        .buy-btn { background: var(--primary); color: #000; border: none; padding: 12px 20px; border-radius: 15px; font-weight: 800; cursor: pointer; }
-        .buy-btn:disabled { background: #1a1d26; color: #444; cursor: not-allowed; border: 1px solid #333; }
-        .active-status { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid #00ff88; padding: 10px; border-radius: 12px; font-weight: bold; font-size: 12px; }
+        body { background: #090b10; color: white; font-family: sans-serif; padding: 20px; }
+        .back-btn { color: #c4ff00; text-decoration: none; font-size: 20px; display: block; margin-bottom: 20px; }
+        .vip-card { background: #1a1d26; border: 1px solid #c4ff0033; border-radius: 20px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .buy-btn { background: #c4ff00; color: black; border: none; padding: 10px 15px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        .buy-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .active-txt { color: #00ff88; font-weight: bold; border: 1px solid #00ff88; padding: 5px 10px; border-radius: 10px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <a href="javascript:history.back()" class="back-btn">←</a>
-        <h2>Packs VIP</h2>
-    </div>
+    <a href="index.html" class="back-btn">← Retour</a>
+    <h2>Packs VIP</h2>
 
-    <div id="vip-list">
-        </div>
+    <div id="vip-list"></div>
 
     <script>
         const vips = [
@@ -33,27 +26,14 @@
             { id: 'VIP 2', price: 12, profit: 1.80 },
             { id: 'VIP 3', price: 25, profit: 3.00 },
             { id: 'VIP 4', price: 50, profit: 4.00 },
-            { id: 'VIP 5', price: 100, profit: 10.00 },
-            { id: 'VIP 6', price: 200, profit: 15.00 },
-            { id: 'VIP 7', price: 500, profit: 25.00 }
+            { id: 'VIP 5', price: 100, profit: 10.00 }
         ];
 
-        async function loadVIPs() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get('user_id');
-            const activeVip = localStorage.getItem('active_vip');
-            
-            // Nou chache balans lan nan bot la
-            let balance = 0;
-            try {
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.bots.business/v1/bots/qeykominingbot/web-app/get_balance?user_id=' + userId)}`);
-                const result = await response.json();
-                const data = JSON.parse(result.contents);
-                balance = parseFloat(data.balance || 0);
-            } catch (e) { balance = 110.0; } // Balans tès ou a
-
+        function loadVIPs() {
             const container = document.getElementById('vip-list');
-            container.innerHTML = '';
+            const activeVip = localStorage.getItem('active_vip');
+            // Nou simulation balans lan (pou tès)
+            const balance = parseFloat(localStorage.getItem('user_balance') || "0"); 
 
             vips.forEach(vip => {
                 const isCurrent = activeVip === vip.id;
@@ -61,31 +41,29 @@
                 
                 container.innerHTML += `
                     <div class="vip-card">
-                        <div class="vip-info">
-                            <h3>${vip.id}</h3>
-                            <p>Investissement: <b>${vip.price} USDT</b><br>Gain: ${vip.profit.toFixed(2)} USDT / jour</p>
+                        <div>
+                            <b style="color:#c4ff00">${vip.id}</b><br>
+                            <small>${vip.price} USDT | ${vip.profit} USDT/j</small>
                         </div>
                         ${isCurrent ? 
-                            `<div class="active-status">DÉJÀ ACTIF</div>` : 
-                            `<button class="buy-btn" ${!canAfford ? 'disabled' : ''} onclick="buyVip('${vip.id}', ${vip.price})">
-                                ${canAfford ? 'ACTIVER' : 'SOLDE INSUFFISANT'}
+                            `<span class="active-txt">ACTIF</span>` : 
+                            `<button class="buy-btn" ${!canAfford ? 'disabled' : ''} onclick="buyVip('${vip.id}')">
+                                ${canAfford ? 'ACTIVER' : 'MIN 1.00'}
                             </button>`
                         }
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
-        function buyVip(name, price) {
-            if (confirm(`Voulez-vous activer le ${name} pour ${price} USDT ?`)) {
-                localStorage.setItem('active_vip', name);
-                alert(`Succès ! ${name} est maintenant actif.`);
-                location.reload(); // Sa ap rafrechi paj la pou bouton an chanje
-            }
+        function buyVip(id) {
+            localStorage.setItem('active_vip', id);
+            alert("VIP " + id + " activé !");
+            location.reload();
         }
 
         window.onload = loadVIPs;
     </script>
 </body>
 </html>
+
 
