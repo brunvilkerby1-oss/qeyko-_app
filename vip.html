@@ -1,83 +1,45 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packs VIP - Qeyko</title>
-    <style>
-        :root { --primary: #c4ff00; --bg-dark: #090b10; --card-bg: rgba(26, 29, 38, 0.9); --border: rgba(196, 255, 0, 0.2); --text-sec: #8a94ad; }
-        body { background: radial-gradient(circle at top, #1a1d26, #090b10); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
-        
-        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .back-btn { text-decoration: none; color: var(--primary); font-size: 20px; background: rgba(196, 255, 0, 0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1px solid var(--border); }
-
-        .vip-list { display: flex; flex-direction: column; gap: 15px; padding-bottom: 40px; }
-        .vip-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        
-        .vip-info h3 { margin: 0; color: var(--primary); font-size: 18px; letter-spacing: 1px; }
-        .vip-details { font-size: 12px; color: var(--text-sec); margin-top: 5px; line-height: 1.6; }
-        .vip-details b { color: #fff; }
-
-        .buy-btn { border: none; padding: 12px 20px; border-radius: 14px; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .btn-active { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid #00ff88; cursor: default; }
-        .btn-ready { background: var(--primary); color: black; box-shadow: 0 5px 15px rgba(196, 255, 0, 0.2); }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <a href="index.html" class="back-btn"> < </a>
-        <h2 style="margin:0; font-size: 20px;">Packs VIP</h2>
+<div class="vip-list" id="vip-container">
     </div>
 
-    <div class="vip-list" id="vip-container">
-        </div>
+<script>
+    const vips = [
+        { id: 1, invest: 10, profit: 1.00, status: "available" },
+        { id: 2, invest: 12, profit: 1.80, status: "available" },
+        { id: 3, invest: 20, profit: 2.50, status: "available" },
+        { id: 4, invest: 30, profit: 3.50, status: "available" },
+        { id: 5, invest: 50, profit: 6.00, status: "available" },
+        { id: 6, invest: "???", profit: 0, status: "locked" },
+        { id: 7, invest: "???", profit: 0, status: "locked" },
+        { id: 8, invest: "???", profit: 0, status: "locked" }
+    ];
 
-    <script>
-        // Configuration des 7 VIP selon ton business model
-        const vips = [
-            { id: 1, invest: 10, profit: 1.00 },
-            { id: 2, invest: 12, profit: 1.80 },
-            { id: 3, invest: 20,profit: 3.00 },
-            { id: 4, invest: 30,profit: 4.50 },
-            { id: 5, invest: 250, profit: 12.00 },
-            { id: 6, invest: 500, profit: 25.00 },
-            { id: 7, invest: 1000, profit: 55.00 }
-        ].  {id: 8, ?
-
-        function renderVips() {
-            const container = document.getElementById('vip-container');
-            const activeVip = localStorage.getItem('active_vip_id');
-
-            vips.forEach(vip => {
-                const card = document.createElement('div');
-                card.className = 'vip-card';
-                
-                const isActive = activeVip == vip.id;
-
-                card.innerHTML = `
-                    <div class="vip-info">
-                        <h3>VIP ${vip.id}</h3>
-                        <div class="vip-details">
-                            Investissement : <b>${vip.invest} USDT</b><br>
-                            Gain : <b>${vip.profit.toFixed(2)} USDT / jour</b>
-                        </div>
+    function renderVips() {
+        const container = document.getElementById('vip-container');
+        vips.forEach(vip => {
+            const isLocked = vip.status === "locked";
+            const card = document.createElement('div');
+            card.className = 'vip-card';
+            
+            card.innerHTML = `
+                <div class="vip-info" style="${isLocked ? 'opacity: 0.5' : ''}">
+                    <h3>VIP ${vip.id}</h3>
+                    <div class="vip-details">
+                        ${isLocked ? '<b>Bientôt disponible</b>' : `Investissement : <b>${vip.invest} USDT</b><br>Gain : <b>${vip.profit.toFixed(2)} USDT / jour</b>`}
                     </div>
-                    <button class="buy-btn ${isActive ? 'btn-active' : 'btn-ready'}" 
-                            onclick="${isActive ? '' : `selectVip(${vip.id}, ${vip.invest})`}">
-                        ${isActive ? 'Actif' : 'Activer'}
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
+                </div>
+                <button class="buy-btn ${isLocked ? 'btn-locked' : 'btn-ready'}" 
+                        ${isLocked ? 'disabled' : `onclick="selectVip(${vip.id}, ${vip.invest})"`}>
+                    ${isLocked ? 'Verrouillé' : 'Activer'}
+                </button>
+            `;
+            container.appendChild(card);
+        });
+    }
 
-        function selectVip(id, price) {
-            // On redirige vers la page de recharge en passant le montant
-            window.location.href = `recharger.html?amount=${price}&vip=${id}`;
-        }
+    function selectVip(id, price) {
+        window.location.href = `recharger.html?amount=${price}&vip=${id}`;
+    }
 
-        window.onload = renderVips;
-    </script>
-</body>
-</html>
+    window.onload = renderVips;
+</script>
+
