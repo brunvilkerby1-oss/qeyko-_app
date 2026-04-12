@@ -1,1 +1,152 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qeyko Crypto Mining</title>
+    <style>
+        :root {
+            --neon-green: #ccff00;
+            --dark-bg: #0a0a0a;
+            --card-bg: #161618;
+        }
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 100px; /* Pou meni anba a pa kouvri anyen */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h3 {
+            letter-spacing: 2px;
+            color: var(--neon-green);
+        }
+        .balance-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(204, 255, 0, 0.15);
+            border-radius: 25px;
+            padding: 35px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .balance-card h2 {
+            font-size: 13px;
+            color: #aaaaaa;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .balance-amount {
+            font-size: 40px;
+            font-weight: 900;
+            color: white;
+            margin: 10px 0;
+        }
+        .network-tag {
+            background: rgba(204, 255, 0, 0.1);
+            color: var(--neon-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            display: inline-block;
+        }
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn-main {
+            background: linear-gradient(135deg, #ccff00 0%, #99cc00 100%);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(204, 255, 0, 0.2);
+        }
+        .btn-secondary {
+            background: #1a1a1d;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+        }
+        /* Meni anba (Navigation) */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(22, 22, 24, 0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            color: #666;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav-item.active {
+            color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h3>QEYKO CRYPTO MINING</h3>
+    </div>
+
+    <div class="balance-card">
+        <h2>SOLDE DISPONIBLE</h2>
+        <div class="balance-amount" id="main-balance">0.00</div>
+        <div class="network-tag">Réseau: BEP20 (USDT)</div>
+    </div>
+
+    <div class="action-grid">
+        <a href="recharger.html" class="btn-main">RECHARGER</a>
+        <a href="retrait.html" class="btn-main">RETRAIT</a>
+        <a href="vip.html" class="btn-secondary">PACKS VIP</a>
+        <a href="donnees.html" class="btn-secondary">SESSION MINAGE</a>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-item active">ACCUEIL</a>
+        <a href="donnees.html" class="nav-item">DONNÉES</a>
+        <a href="vip.html" class="nav-item">VIP</a>
+        <a href="profil.html" class="nav-item">PROFIL</a>
+    </nav>
+
+    <script>
+        // Fonksyon pou mete balans lan ajou
+        function loadBalance() {
+            let balance = localStorage.getItem('solde') || "0.00";
+            document.getElementById('main-balance').innerText = balance;
+        }
+        window.onload = loadBalance;
+    </script>
+
+</body>
+</html>
